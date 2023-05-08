@@ -1,13 +1,26 @@
 import '@/styles/globals.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { AppProps } from 'next/app'
 import { Fragment } from 'react'
 import { Toaster } from 'react-hot-toast'
 
+const queryClient = new QueryClient(
+  {
+    defaultOptions:{
+      queries:{
+        cacheTime:0,
+        networkMode:'always'
+      }
+    }
+  }
+)
+
 export default function App({ Component, pageProps }: AppProps) {
   return   <Fragment>
-
-    <Toaster />
-    <Component {...pageProps} />
+    <QueryClientProvider client={queryClient}>
+      <Toaster />
+      <Component {...pageProps} />
+    </QueryClientProvider>
   </Fragment>
 
   

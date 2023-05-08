@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
-import {CompanyCreate } from "@/features/auth";
+import DashboardLayout from "@/component/Layout";
+import { CompanyCreate } from "@/features/company/company.service";
 
 export default function CreateCompany() {
    const router = useRouter();
@@ -16,7 +17,7 @@ export default function CreateCompany() {
             toast.success('Terminé!', {
                 id:toastId
            });
-         router.push('/');
+         router.push('/admin/');
         }
         catch(exception){
             toast.error('Echec', {
@@ -28,6 +29,8 @@ export default function CreateCompany() {
 
     
     return (
+        <DashboardLayout>
+            
         <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div className="px-6 py-4">
         
@@ -64,6 +67,7 @@ export default function CreateCompany() {
         </div>
     
     </div>
+              </DashboardLayout>
     )
 }
 

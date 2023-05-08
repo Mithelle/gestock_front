@@ -1,17 +1,26 @@
-import { getAllShop } from "@/features/shop/shop.service";
+import DashboardLayout from "@/component/Layout";
+import { useDeleteShop, useGetAllShop } from "@/features/shop/shop.service";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import {  useRouter } from "next/router";
 
 export default function ShoplistPage(){
-    const [shoplist, setshoplist] = useState([]);
+    const router = useRouter();
+    const { data: shoplist, isLoading  } = useGetAllShop();
+    const deleteShop = useDeleteShop();
 
-    useEffect(() =>{
-        getAllShop()
-        .then(res => setshoplist(res.data.data))
-        .catch(e => console.error(e))
-    },[])    
+    function onDelete(id: string){
+        deleteShop.mutate(id)
+        router.reload();
+    }
+
+    if(isLoading) {
+        return <div className="text-center">Loading...</div> 
+    }
+    console.log(shoplist)
     
 return(
+    <DashboardLayout>
+
     
 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     <div className="flex mt-2">
@@ -38,8 +47,9 @@ return(
                 </th>
             </tr>
         </thead>
-        {shoplist.map( shop =>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <tbody>
+        {shoplist?.data.data.map( shop =>
+                    <tr key={shop.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {shop.name}
                     </td>
@@ -51,34 +61,17 @@ return(
                     </td>
                     <td className="flex px-6 py-4 text-right">
                         <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">  
-                     < Link href="/shops/edit/"   >Modifier</Link>
+                     < Link href={"/shops/edit/" + shop.id }  >Modifier</Link>
                             </button>
-                        <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50 ">Supprimer</button>
+                        <button onClick={ () => onDelete(shop.id)} className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50 ">Supprimer</button>
                     </td>
                 </tr>
     
             )}
-        <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    TEC-SARL siège
-                </td>
-                <td className="px-6 py-4">
-                      Cotonou,Agontinkon,avenue wjnéf
-                </td>
-                <td className="px-6 py-4">
-                    524516884
-                </td>
-              <td className="flex px-6 py-4 text-right">
-                    <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">  
-                  < Link href="/shops/edit/"  >Modifier</Link>
-                        </button>
-                    <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50 ">Supprimer</button>
-                </td>
-            </tr>
            </tbody> 
     </table>
 </div>
+</DashboardLayout>
 
 );
 

@@ -1,10 +1,13 @@
 import axios from "axios";
-import axiosInstance from "@/utils/axios";
 
 export const BASE_URL = 'http://localhost:8000';
 
 export function createAccount(data:any){
    return axios.post( BASE_URL + "/api/register", data);
+}
+
+export function me(){
+   return axios.get( BASE_URL + "/api/me");
 }
 
 export async function loginUser(data:any){
@@ -20,28 +23,10 @@ export async function confirmUser(data:any){
 
 export function pwdUser(data:any){
    console.log(data);
-   
    return axios.post( BASE_URL + "/api/forgotpass", data);
 }
+
 export function resetUserpwd(data:any){
    return axios.post( BASE_URL + "/api/update", data);
-}
-
-export function CompanyCreate(data:any){
-
-   return axiosInstance.post("/api/newCompany", data);
-}
-
-export function CompShop(data:any){
-
-   return axiosInstance.post("/api/newShop", data);
-}
-export function Storage(data:any){
-
-   return axiosInstance.post(  "/api/newDepot", data);
-}
-export function CreateUser(data:any){
-
-   return axiosInstance.post(  "/api/newUser", data);
 }
 
