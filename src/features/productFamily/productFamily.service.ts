@@ -9,13 +9,13 @@ export function  addFamily (data:any){
 
 export const useUpdateProductFamily =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.post('/api/alterProductFamily/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterProductFamily/' + data.id, data)
     })
 }
 
 export const useDeleteProductFamily =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.post('/api/delProductFamily/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delProductFamily/' + id) 
     })
 }
 

@@ -9,13 +9,13 @@ export function CompShop(data:any){
 
 export const useUpdateShop =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.post('/api/alterShop/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterShop/' + data.id, data)
     })
 }
 
 export const useDeleteShop =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.post('/api/delShop/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delShop/' + id) 
     })
 }
 

@@ -8,13 +8,13 @@ export function Storage(data:any){
  
 export const useUpdateStore =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.post('/api/alterDepot/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterDepot/' + data.id, data)
     })
 }
 
 export const useDeleteStore =  () => {
     return useMutation({
-        mutationFn: (id: string) => axiosInstance.post('/api/delDepot/' + id) 
+        mutationFn: (id: string) => axiosInstance.delete('/api/delDepot/' + id) 
     })
 }
 

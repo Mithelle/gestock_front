@@ -9,13 +9,13 @@ export function addCustomer(data:any){
 
 export const useUpdateCustomer =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.post('/api/alterCustomer/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterCustomer/' + data.id, data)
     })
 }
 
 export const useDeleteCustomer =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.post('/api/delCustomer/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delCustomer/' + id) 
     })
 }
 

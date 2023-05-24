@@ -8,13 +8,13 @@ export function CreateUser(data:any){
  
 export const useUpdateUser =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.post('/api/alterUsers/'+ data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterUser/'+ data.id, data)
     })
 }
 
 export const useDeleteUser =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.post('/api/delUsers/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delUser/' + id) 
     })
 }
 

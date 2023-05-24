@@ -9,13 +9,13 @@ export function addSupplier(data:any){
 
 export const useUpdateSupplier =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.post('/api/alterSupplier/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterSupplier/' + data.id, data)
     })
 }
 
 export const useDeleteSupplier =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.post('/api/delSupplier/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delSupplier/' + id) 
     })
 }
 
@@ -29,7 +29,7 @@ export const useGetOneSupplier =  (id: any) => {
 export const useGetAllSupplier =  () => {
     return useQuery({
         queryKey: ['supplier'],
-        queryFn: () => axiosInstance.get('/api/supliers')
+        queryFn: () => axiosInstance.get('/api/suppliers')
     })
 }
 

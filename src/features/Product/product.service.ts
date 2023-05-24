@@ -9,13 +9,13 @@ export function addProduct(data:any){
 
 export const useUpdateProduct =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.post('/api/alterProduct/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterProduct/' + data.id, data)
     })
 }
 
 export const useDeleteProduct =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.post('/api/delProduct/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delProduct/' + id) 
     })
 }
 
@@ -33,3 +33,16 @@ export const useGetAllProduct =  () => {
     })
 }
 
+export const useGetAllPackageByProduct =  (id) => {
+    return useQuery({
+        queryKey: ['product', id, 'package'],
+        queryFn: () => axiosInstance.get('/api/shop/' + id +'/depot')
+    })
+}
+
+export const useGetAllMeasureByProduct =  (id) => {
+    return useQuery({
+        queryKey: ['product', id, 'Measure'],
+        queryFn: () => axiosInstance.get('/api/product/' + id +'/measure')
+    })
+}
