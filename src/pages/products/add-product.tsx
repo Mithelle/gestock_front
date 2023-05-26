@@ -12,7 +12,6 @@ export default function AddProductPage() {
     const { data: productFamilylist, isLoading  } = useGetAllProductFamily();
     const { data: measurementlist } = useGetAllMeasure();
 
-
     async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
@@ -46,10 +45,10 @@ export default function AddProductPage() {
                     <input {...register("name")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Nom du produit" aria-label="name" required/>
                 </div>
                 <div className="w-full mt-4">
-                    <input {...register("description")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Description" aria-label="fournisseur" />
+                    <input {...register("description")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Description" aria-label="description" />
                 </div>
                 <div>
-                <select {...register("productFamily_id")} name="productFamily_id" id="productFamily_id" className="block  px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select {...register("product_family_id")} name="product_family_id" id=" " className="block  px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez une famille</option>
                     { productFamilylist !== undefined && productFamilylist.data.data.map( productFamily => <option key={productFamily.id}  value={productFamily.id}>{productFamily.name}</option>) }
                     </select>            
@@ -57,7 +56,7 @@ export default function AddProductPage() {
                <div>
                 <select {...register("measure_id")} name="measure_id" id="measure_id" className="block  px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez une unité de mesure</option>
-                    { measurementlist !== undefined && measurementlist.data.data.map( measurement => <option key={measurement.id}  value={measurement.id}>{measurement.unit}</option>) }
+                    { measurementlist !== undefined && measurementlist.data.data.map( measure => <option key={measure.id}  value={measure.id}>{measure.unit}</option>) }
                     </select>            
                </div>
                <div className="w-full mt-1">

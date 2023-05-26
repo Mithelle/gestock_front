@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
 import { useState } from "react";
 import { useGetAllPackageByProduct, useGetAllProduct } from "@/features/Product/product.service";
-import { addPrice } from "@/features/price-structure/price-structure.service";
 
 export default function AddPricePage() {
     const router = useRouter();
@@ -25,7 +24,7 @@ export default function AddPricePage() {
         setSelected(e.target.value);
         
     }
-    
+    console.log(setSelected);
     return (
         <DashboardLayout>
 
@@ -42,23 +41,27 @@ export default function AddPricePage() {
                     <option value="">Choisissez le produit</option>
                     {productlist !== undefined && productlist.data.data.map( product => <option key={product.id}  value={product.id}>{product.name}</option>)}
                     </select>  
-                { Array(2).fill(0).map((value,index) =>
+                { Array(setSelected).fill(setSelected.value).map((value,setSelected) =>
                     <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2 border border-color:black">
                         <div>
+                            <label htmlFor="conditions" className="text-gray-700 dark:text-gray-200">Conditionnement</label>
+                            <input {...register(`conditions.${setSelected}.package`) } type="number" name="package" id="package" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                        </div>
+                        <div>
                             <label htmlFor="priceU" className="text-gray-700 dark:text-gray-200">Prix unitaire</label>
-                            <input {...register(`conditions.${index}.priceU`) } type="number" name="priceU" id="PriceU" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input {...register(`conditions.${setSelected}.priceU`) } type="number" name="priceU" id="priceU" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="priceMin" className="text-gray-700 dark:text-gray-200">prix Minimal</label>
-                            <input {...register(`conditions.${index}.priceMin`) } type="number" name="priceMin" id="priceMin" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input {...register(`conditions.${setSelected}.priceMin`) } type="number" name="priceMin" id="priceMin" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="priceMax" className="text-gray-700 dark:text-gray-200">prix Maximal</label>
-                            <input {...register(`conditions.${index}.priceMax`) } type="number" name="priceMax" id="priceMax" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input {...register(`conditions.${setSelected}.priceMax`) } type="number" name="priceMax" id="priceMax" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="reduction" className="text-gray-700 dark:text-gray-200">Réduction</label>
-                            <input {...register(`conditions.${index}.redution`) } type="number" name="reduction" id="reduction" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input {...register(`conditions.${setSelected}.redution`) } type="number" name="reduction" id="reduction" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="type" className="text-gray-700 dark:text-gray-200">Type de réduction</label>
@@ -71,16 +74,6 @@ export default function AddPricePage() {
                 )}
             </div>
         }
-          {/*  <div className="w-full mt-4">
-                    <input {...register("cond")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Nom de l'annexe" aria-label="name" />
-                </div>
-                <div className="w-full mt-4">
-                    <input {...register("adresse")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Adresse" aria-label="Address" />
-                </div>
-                <div className="w-full mt-4">
-                    <input {...register("tel")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Téléphone" aria-label="phone" />
-                </div>
-                 */}
                  <div className="block items-center justify-between mt-6">
                 <button className="block ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                         Créer

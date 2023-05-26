@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
+import { addDelivery } from "@/features/delivery/delivery.service";
 
 export default function AddDeliveryPage() {
     const router = useRouter();
@@ -12,7 +13,7 @@ export default function AddDeliveryPage() {
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await AddDelivery (data)
+         const response =  await addDelivery (data)
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId
@@ -38,13 +39,13 @@ export default function AddDeliveryPage() {
     
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full mt-4">
-                    <input {...register("codLiv")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Code de la livraison" aria-label="" />
+                    <input {...register("deliveryCod")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Code de la livraison" aria-label="" />
                 </div>
                 <div className="w-full mt-4">
-                    <input {...register("nomLiv")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Nom du livreur" aria-label="name" />
+                    <input {...register("deliveryMan")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Nom du livreur" aria-label="name" />
                 </div>
                 <div className="w-full mt-4">
-                    <input {...register("company")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Entreprise" aria-label="company" />
+                    <input {...register("supplier")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Fournisseur" aria-label="supplier" />
                 </div>
                 <div className="w-full mt-4">
                     <input {...register("adresse")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Adresse" aria-label="Address" />

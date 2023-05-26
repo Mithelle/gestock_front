@@ -38,14 +38,16 @@ export default function AddSupplyPage() {
             <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Créer un approvisionnement</p>
     
             <form onSubmit={handleSubmit(onSubmit)}>
-            <select {...register("product_id")} name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
-                    <option value="">Choisissez un produit</option>
-                    { productlist !== undefined && productlist.data.data.map( product => <option key={product.id}  value={product.id}>{product.name}</option>) }
-                    </select>            
-
             <div className="w-full mt-4">
-                    <input {...register("name")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Nom de l'annexe" aria-label="name" />
+                    <input {...register("supplyDate")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Date de l'approvisionnement" aria-label="date" />
                 </div>
+            <select {...register("supplier_id")} name="supplier_id" id="supplier_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                    <option value="">Choisissez un produit</option>
+                    { supplierlist !== undefined && suplierlist.data.data.map( supplier => <option key={supplier.id}  value={supplier.id}>{supplier.name}</option>) }
+                </select>    
+
+                { Array(2).fill(0).map((value,index) =>
+                <div>
                 <div className="w-full mt-4">
                     <input {...register("adresse")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Adresse" aria-label="Address" />
                 </div>
@@ -57,6 +59,8 @@ export default function AddSupplyPage() {
                         Créer
                     </button>
                 </div>
+                </div>
+                )}
             </form>
         </div>
     

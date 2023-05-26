@@ -42,7 +42,7 @@ export const useGetAllPackageByProduct =  (id) => {
 
 export const useGetAllMeasureByProduct =  (id) => {
     return useQuery({
-        queryKey: ['product', id, 'Measure'],
+        queryKey: ['product', id, 'measure'],
         queryFn: () => axiosInstance.get('/api/product/' + id +'/measure')
     })
 }

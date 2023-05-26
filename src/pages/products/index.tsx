@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function ProductlistPage(){
         const [proFamId, setProFamId] = useState('');
         const router = useRouter();
-        const { data: productlist, isLoading  } = useGetAllProductByProductFamily(proFamId);
+        const { data: productlist  } = useGetAllProductByProductFamily(proFamId);
 
         const deleteProduct = useDeleteProduct();
         const {data: allProductFamily} = useGetAllProductFamily();
@@ -21,7 +21,7 @@ export default function ProductlistPage(){
         function onSelectProductFamily(value: string){
             setProFamId(value)
         }
-        
+        console.log(productlist);
         
 return(
  <DashboardLayout>

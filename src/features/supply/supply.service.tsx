@@ -33,10 +33,10 @@ export const useGetAllSupply =  () => {
     })
 }
 
-export const useGetAllStoreBySupply =  (id) => {
+export const useGetAllProductBySupply =  (id) => {
     return useQuery({
-        queryKey: ['supply', id, 'depot'],
-        queryFn: () => axiosInstance.get('/api/supply/' + id +'/depot')
+        queryKey: ['supply', id, 'product'],
+        queryFn: () => axiosInstance.get('/api/supply/' + id +'/product')
     })
 }
 

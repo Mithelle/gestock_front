@@ -2,33 +2,33 @@ import axiosInstance from "@/utils/axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 
-export function ControlShop(data:any){
+export function addCommand(data:any){
 
     return axiosInstance.post("/api/newShop", data);
  }
 
-export const useUpdateControl =  () => {
+export const useUpdateCommand =  () => {
     return useMutation({
         mutationFn: (data) => axiosInstance.put('/api/alterShop/' + data.id, data)
     })
 }
 
-export const useDeleteControl =  () => {
+export const useDeleteCommand =  () => {
     return useMutation({
         mutationFn: (id) => axiosInstance.delete('/api/delShop/' + id) 
     })
 }
 
-export const useGetOneControl =  (id: any) => {
+export const useGetOneCommand =  (id: any) => {
     return useQuery({
-        queryKey: ['control', id],
+        queryKey: ['commande', id],
         queryFn: () => axiosInstance.get('/api/shop/' + id)
     })
 }
 
-export const useGetAllControl =  () => {
+export const useGetAllCommand =  () => {
     return useQuery({
-        queryKey: ['control'],
+        queryKey: ['command'],
         queryFn: () => axiosInstance.get('/api/shops')
     })
 }
@@ -46,4 +46,4 @@ export const useGetAllUserByShop =  (id) => {
         queryFn: () => axiosInstance.get('/api/shop/' + id +'/user')
     })
 }
-
+*/
