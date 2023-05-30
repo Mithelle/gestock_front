@@ -33,16 +33,15 @@ export const useGetAllProduct =  () => {
     })
 }
 
-export const useGetAllPackageByProduct =  (id) => {
+/*export const useGetAllPackageByProduct =  (id) => {
     return useQuery({
         queryKey: ['product', id, 'package'],
-        queryFn: () => axiosInstance.get('/api/shop/' + id +'/depot')
+        queryFn: () => axiosInstance.get('/api/product/' + id +'/package')
     })
-}
-
-export const useGetAllMeasureByProduct =  (id) => {
+}*/
+export const useGetAllPriceByProduct =  (id) => {
     return useQuery({
-        queryKey: ['product', id, 'measure'],
-        queryFn: () => axiosInstance.get('/api/product/' + id +'/measure')
+        queryKey: ['product', id, 'price'],
+        queryFn: () => axiosInstance.get('/api/product/' + id +'/price')
     })
 }

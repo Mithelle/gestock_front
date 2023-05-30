@@ -3,7 +3,8 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
 import { useState } from "react";
-import { useGetAllPackageByProduct, useGetAllProduct } from "@/features/Product/product.service";
+import { useGetAllProduct } from "@/features/Product/product.service";
+import { useGetAllPackageByProduct } from "@/features/package/packaging.service";
 
 export default function AddPricePage() {
     const router = useRouter();
@@ -11,8 +12,7 @@ export default function AddPricePage() {
     const {data: productlist, isLoading } = useGetAllProduct();
     const [productId, setProductId] = useState();
     const {data: packagelist } = useGetAllPackageByProduct(productId);
-    const [addForm, setAddForm] = useState(false);
-    const [selected, setSelected] = useState('');
+    // const [selected, setSelected] = useState('');
 
    async function onSubmit(data:any){
         //const toastId = toast.loading('En cours...');
@@ -21,10 +21,10 @@ export default function AddPricePage() {
     
 
     function handleSelectedChange(e){
-        setSelected(e.target.value);
-        
+        setProductId(e.target.value);
     }
-    console.log(setSelected);
+        
+   // console.log(packagelist);
     return (
         <DashboardLayout>
 
@@ -41,27 +41,23 @@ export default function AddPricePage() {
                     <option value="">Choisissez le produit</option>
                     {productlist !== undefined && productlist.data.data.map( product => <option key={product.id}  value={product.id}>{product.name}</option>)}
                     </select>  
-                { Array(setSelected).fill(setSelected.value).map((value,setSelected) =>
+                { packagelist?.data.data.map((conditions: any, setProductId: any) =>
                     <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2 border border-color:black">
                         <div>
                             <label htmlFor="conditions" className="text-gray-700 dark:text-gray-200">Conditionnement</label>
-                            <input {...register(`conditions.${setSelected}.package`) } type="number" name="package" id="package" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input value={conditions.package} {...register(`conditions.${setProductId}.package`) } type="number" min={0} name="package" id="package" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="priceU" className="text-gray-700 dark:text-gray-200">Prix unitaire</label>
-                            <input {...register(`conditions.${setSelected}.priceU`) } type="number" name="priceU" id="priceU" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input {...register(`conditions.${setProductId}.priceU`) } min={0} type="number" name="priceU" id="priceU" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="priceMin" className="text-gray-700 dark:text-gray-200">prix Minimal</label>
-                            <input {...register(`conditions.${setSelected}.priceMin`) } type="number" name="priceMin" id="priceMin" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input {...register(`conditions.${setProductId}.priceMin`) } min={0} type="number" name="priceMin" id="priceMin" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="priceMax" className="text-gray-700 dark:text-gray-200">prix Maximal</label>
-                            <input {...register(`conditions.${setSelected}.priceMax`) } type="number" name="priceMax" id="priceMax" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
-                        </div>
-                        <div>
-                            <label htmlFor="reduction" className="text-gray-700 dark:text-gray-200">Réduction</label>
-                            <input {...register(`conditions.${setSelected}.redution`) } type="number" name="reduction" id="reduction" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
+                            <input {...register(`conditions.${setProductId}.priceMax`) } min={0} type="number" name="priceMax" id="priceMax" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                         <div>
                             <label htmlFor="type" className="text-gray-700 dark:text-gray-200">Type de réduction</label>
@@ -69,6 +65,10 @@ export default function AddPricePage() {
                             <option value="percent">En pourcentage</option>
                             <option value="amount">Sur montant</option>
                             </select>
+                        </div>
+                        <div>
+                            <label htmlFor="reduction" className="text-gray-700 dark:text-gray-200">Réduction</label>
+                            <input {...register(`conditions.${setProductId}.redution`) } min={0} type="number" name="reduction" id="reduction" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
                         </div>
                     </div>
                 )}

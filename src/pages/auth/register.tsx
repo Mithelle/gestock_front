@@ -15,13 +15,13 @@ export default function RegisterPage() {
           toast.success('Créé avec succès!', {
             id: toastId
           });
-          router.push('/login')
+          router.push('/auth/login')
         }
         catch(exception){
             toast.error('Echec de création!', {
                 id: toastId
             });
-            console.log(exception.response.data)
+            console.log(exception)
         }
     }
 

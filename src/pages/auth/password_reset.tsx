@@ -12,7 +12,7 @@ export default function ResetPassword() {
         try{
             const response =  await resetUserpwd ({...data, email: router.query.email})
             // console.log(response)
-            router.push('/login');
+            router.push('/auth/login');
         }
         catch(exception){
             // console.log(exception);

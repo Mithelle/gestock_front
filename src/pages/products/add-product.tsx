@@ -54,7 +54,7 @@ export default function AddProductPage() {
                     </select>            
                </div>
                <div>
-                <select {...register("measure_id")} name="measure_id" id="measure_id" className="block  px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select {...register("base_unit")} name="base_unit" id="base_unit" className="block  px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez une unité de mesure</option>
                     { measurementlist !== undefined && measurementlist.data.data.map( measure => <option key={measure.id}  value={measure.id}>{measure.unit}</option>) }
                     </select>            

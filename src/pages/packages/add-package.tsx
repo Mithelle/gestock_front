@@ -45,7 +45,7 @@ export default function addPackagePage() {
                     </select>            
                </div>
                <div>
-                <select {...register("unit")} name="unit" id="measure_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select {...register("measure_id")} name="measure_id" id="measure_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez une unité de mesure</option>
                     { measurelist !== undefined && measurelist.data.data.map( measure => <option key={measure.id}  value={measure.id}>{measure.unit}</option>) }
                     </select>            

@@ -11,7 +11,7 @@ export default function AuthLayout({children}) {
         if(Cookies.get('token')) {
             setIsAuth(true);   
         } else {
-            router.push('/login');
+            router.push('/auth/login');
         }
     }, [])
 

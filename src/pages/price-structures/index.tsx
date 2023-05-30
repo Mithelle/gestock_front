@@ -1,15 +1,19 @@
 import DashboardLayout from "@/component/Layout";
 import Link from "next/link";
 import {  useRouter } from "next/router";
-import { Button, Table } from "antd";
+import { Button, Select, Table } from "antd";
 import { useDeletePrice, useGetAllPrice } from "@/features/price-structure/price-structure.service";
+import { useGetAllPriceByProduct, useGetAllProduct } from "@/features/Product/product.service";
+import { useState } from "react";
 
 export default function PricelistPage(){
     const router = useRouter();
-    const { data: pricelist, isLoading  } = useGetAllPrice();
     const deletePrice = useDeletePrice();
-
-    function onDelete(id: string){
+    const { data: allProduct } = useGetAllProduct();
+    const [productId, setProductId] = useState('');
+    const { data: pricelist, isLoading  } = useGetAllPriceByProduct(productId);
+    
+    function onDelete(id: string){      
         deletePrice.mutate(id)
         router.reload();
     }
@@ -18,10 +22,21 @@ export default function PricelistPage(){
         return <div className="text-center">Loading...</div> 
     }
    // console.log(pricelist)
-    
+
+   function onSelectProduct(value: string){
+    setProductId(value);
+    }
+
 return(
     <DashboardLayout>
 
+<Select
+        defaultValue="choisissez un product"
+        style={{ width: 200 }}
+        onChange={onSelectProduct}
+    > 
+         { allProduct !== undefined && allProduct.data.data.map(product => <Select.Option value={product.id} >{product.name}</Select.Option>) }
+  </Select>
     
 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     <div className="flex mt-2">
@@ -32,9 +47,11 @@ return(
      </div>
 
     <Table dataSource={pricelist?.data.data}>
-    <Table.Column title='Nom' dataIndex={"name"} key={"id"} />
-    <Table.Column title='Adresse' dataIndex={"adresse"} key={"id"} />
-    <Table.Column title='Téléphone' dataIndex={"tel"} key={"id"} />
+    <Table.Column title='Conditionnement' dataIndex={"package"} key={"id"} />
+    <Table.Column title='Prix Unitaire' dataIndex={"priceU"} key={"id"} />
+    <Table.Column title='Prix Minimal' dataIndex={"priceMin"} key={"id"} />
+    <Table.Column title='Prix Maximal' dataIndex={"priceMax"} key={"id"} />
+    <Table.Column title='Réduction' dataIndex={"reduction"} key={"id"} />
     <Table.Column title='Action'  
                     render={(value, record: any) =>{
                         return <>

@@ -15,7 +15,7 @@ export default function Home() {
         setCannotAccess(false)
       } 
       else {
-        router.push('/login')
+        router.push('/auth/login')
       }
   }, [])
 

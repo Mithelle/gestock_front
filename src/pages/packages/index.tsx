@@ -1,5 +1,5 @@
 import DashboardLayout from "@/component/Layout";
-import { useGetAllMeasureByProduct, useGetAllPackageByProduct, useGetAllProduct } from "@/features/Product/product.service";
+import { useGetAllPackageByProduct, useGetAllProduct } from "@/features/Product/product.service";
 import { useDeletePackage } from "@/features/package/packaging.service";
 import { Button, Select, Table } from "antd";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default function PackagelistPage(){
         const router = useRouter();
         const { data: packagelist } = useGetAllPackageByProduct(productId);
         const {data: allProduct } = useGetAllProduct();
-        const { data: measurelist } = useGetAllMeasureByProduct(productId);
+        //const { data: measurelist } = useGetAllMeasureByProduct(productId);
 
         const deletePackage = useDeletePackage();
         function onDelete(id: string){
@@ -44,7 +44,7 @@ return(
 
 <Table dataSource={packagelist?.data.data}>
     <Table.Column title='Conditionnement' dataIndex={"package"} key={"id"} />
-    <Table.Column title='Unité de mesure' dataIndex={measurelist?.data.data} key={"id"} />
+    {/*<Table.Column title='Unité de mesure' dataIndex={measurelist?.data.data} key={"id"} />*/}
     <Table.Column title='Action'  
                     render={(value, record: any) =>{
                         return <>

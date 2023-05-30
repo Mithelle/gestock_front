@@ -92,6 +92,18 @@ export default function DashboardLayout({children}){
           <Menu.Item>
           <Link href="/price-structures" >Structure de prix</Link>
         </Menu.Item>
+        <Menu.Item>
+          <Link href="/deliveries" >Livraison</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/commands" >Command</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/supplies" >Approvisionnement</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/inventories" >Inventaire</Link>
+        </Menu.Item>
        </Menu>
       </Sider>
       <Layout className="site-layout">

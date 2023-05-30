@@ -27,4 +27,11 @@ export const useGetAllPackage =  () => {
     })
 }
 
+export const useGetAllPackageByProduct =  (product_id: any) => {
+    return useQuery({
+        queryKey: ['package', product_id],
+        queryFn: () => axiosInstance.get('/api/packages/' + product_id)
+    })
+}
+
 
