@@ -1,5 +1,5 @@
 import DashboardLayout from "@/component/Layout";
-import { useDeleteProduct } from "@/features/Product/product.service";
+import { useDeleteProduct, useGetAllProduct } from "@/features/Product/product.service";
 import { useGetAllProductByProductFamily, useGetAllProductFamily } from "@/features/productFamily/productFamily.service";
 import { Button, Select, Table } from "antd";
 import Link from "next/link";
@@ -10,7 +10,8 @@ export default function ProductlistPage(){
         const [proFamId, setProFamId] = useState('');
         const router = useRouter();
         const { data: productlist  } = useGetAllProductByProductFamily(proFamId);
-
+        const { data: allproduct } = useGetAllProduct();
+ 
         const deleteProduct = useDeleteProduct();
         const {data: allProductFamily} = useGetAllProductFamily();
 
@@ -21,7 +22,7 @@ export default function ProductlistPage(){
         function onSelectProductFamily(value: string){
             setProFamId(value)
         }
-        console.log(productlist);
+    //    console.log(productlist);
         
 return(
  <DashboardLayout>
@@ -42,7 +43,7 @@ return(
      </button>
      </div>
 
-<Table dataSource={productlist?.data.data}>
+<Table dataSource={productlist?.data.data} >
 <Table.Column title='Référence' dataIndex={"ref"} key={"id"} />
     <Table.Column title='Nom' dataIndex={"name"} key={"id"} />
     <Table.Column title='Description' dataIndex={"description"} key={"id"} />

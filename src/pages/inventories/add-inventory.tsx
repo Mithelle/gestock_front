@@ -40,13 +40,13 @@ export default function StorePage() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                 <select {...register("package_id")} name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
-                    <option value="">*choisissez un site*</option>
-                    { allpackage !== undefined && allpackage.data.data.map( package => <option key={package.id}  value={package.id}>{package.package}</option>) }
+                    <option value="">Choisissez un conditionnement</option>
+                    { allpackage !== undefined && allpackage.data.data.map( packages => <option key={packages.id}  value={packages.id}>{packages.package}</option>) }
                     </select>            
                </div>
                <div>
                <select {...register("depot_id")} name="depot_id" id="depot_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
-                    <option value="">*choisissez un site*</option>
+                    <option value="">Choisissez un depot</option>
                     { storelist !== undefined && storelist.data.data.map( store => <option key={store.id}  value={store.id}>{store.name}</option>) }
                     </select>            
                </div>

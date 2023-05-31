@@ -13,10 +13,10 @@ export default function AddSupplyPage() {
     const { register, handleSubmit, watch, formState:{ errors } } = useForm();
     const [productId, setProductId] = useState();
     const [packageId, setPackageId] = useState('');
+    const [product_item, setProduct_item] = useState([]);
     const { data: supplierlist } = useGetAllSupplier();
     const { data: productlist } = useGetAllProduct();
     const { data: packagelist } =  useGetAllPackageByProduct(productId);
-
 
 
    async function onSubmit(data:any){
@@ -45,8 +45,31 @@ export default function AddSupplyPage() {
     function handleSelectedPackage(e){
         setPackageId(e.target.value);
     }
+
+    function addProduct(){
+        setProduct_item([...product_item, {
+            product_id:'',
+            package_id:'',
+            quantity:0
+        } as unknown as never
+    ])
+    }
+     console.log(product_item);
     
+    function removeProduct(index){
+        const updateProduct_item = [...product_item];
+        updateProduct_item.splice(index, 1);
+        setProduct_item(updateProduct_item);
+    }
+
+    function handleChange(index, e){
+        const updateProduct_item = [...product_item];
+        updateProduct_item[index].value = e.target.value;
+        setProduct_item(updateProduct_item);
+    };
+
     return (
+
         <DashboardLayout>
 
         <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -64,24 +87,35 @@ export default function AddSupplyPage() {
                     { supplierlist !== undefined && supplierlist.data.data.map( supplier => <option key={supplier.id}  value={supplier.id}>{supplier.name}</option>) }
                 </select>   
                 </div>
-            <div className="grid border border-color:black">
+                <div className="block items-center justify-between mt-6">
+                <button type="button" onClick={addProduct} className="block ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                        Ajouter un produit
+                    </button>
+                </div>
+            { product_item.map((value,index)=>
+            <div className="grid grid-cols-1 gap-2 mt-4 border border-color:black">
+                <svg onClick={() => removeProduct(index)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                </svg>
+
                 <div>
-                <select onProductChange={handleSelectedProduct} value={productId} {...register("product_id")} name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select onProductChange={handleSelectedProduct} value={productId} onChange={(e) => handleChange(index, e)} name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez un produit</option>
-                    { productlist !== undefined && productlist.data.data.map( product => <option key={product.id}  value={product.id}>{product.name}</option>) }
+                    { productlist !== undefined && productlist.data.data.map( product => <option key={product.id} onChange={(e) => handleChange(index, e)} value={product.id}>{product.name}</option>) }
                 </select>
-                <select onPackageChange={handleSelectedPackage} disabled={!productId} {...register("package_id")} name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
-                    <option value="">Choisissez un produit</option>
-                    { packagelist !== undefined && packagelist.data.data.map( package => <option key={package.id}  value={package.id}>{package.package}</option>) }
+                <select onPackageChange={handleSelectedPackage} disabled={!productId}  name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                    <option value="">Choisissez le conditionnement</option>
+                    { packagelist !== undefined && packagelist.data.data.map( packages => <option key={packages.id}  value={packages.id}>{packages.package}</option>) }
                 </select>   
                 </div> 
                 {/*<div className="w-full mt-4">
                     <input {...register(`conditions.${index}.package`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Conditionnement" aria-label="package" />
                 </div>*/}
                 <div className="w-full mt-4">
-                    <input {...register(`supply_qte`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Quanité d'approvisionnement" aria-label="qte" />
+                    <input onChange={(e) => handleChange(index, e)} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Quanité d'approvisionnement" aria-label="qte" />
                 </div>
             </div>
+        )}
                 <div className="block items-center justify-between mt-6">
                 <button className="block ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                         Créer
@@ -92,8 +126,8 @@ export default function AddSupplyPage() {
         </div>
     
     </div>
-    </DashboardLayout>
 
+    </DashboardLayout>
     )
 }
 

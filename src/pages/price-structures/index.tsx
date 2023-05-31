@@ -58,6 +58,7 @@ return(
                                <Button type="link" href={"/priceStructures/edit/" + record.id } >Modifier</Button>
                                <Button type="link" onClick={ () => onDelete(value)}>Supprimer</Button>
                              switch here  <Button type="link" >Supprimer</Button>
+                             <Button type="link" href={"/priceStructures/visit /" + record.id } >Voir</Button>
                         </>
                        
                     }}

@@ -5,6 +5,7 @@ import DashboardLayout from "@/component/Layout";
 import { useState } from "react";
 import { useGetAllProduct } from "@/features/Product/product.service";
 import { useGetAllPackageByProduct } from "@/features/package/packaging.service";
+import { addPrice } from "@/features/price-structure/price-structure.service";
 
 export default function AddPricePage() {
     const router = useRouter();
@@ -15,8 +16,21 @@ export default function AddPricePage() {
     // const [selected, setSelected] = useState('');
 
    async function onSubmit(data:any){
-        //const toastId = toast.loading('En cours...');
-        console.log(data);
+    const toastId = toast.loading('En cours...');
+        try{
+         const response =  await addPrice (data)
+          console.log(response.data)
+            toast.success('Terminé!', {
+                id:toastId
+           });
+         router.push('/price-structures/');
+        }
+        catch(exception){
+            toast.error('Echec', {
+                id:toastId
+            });
+            console.log(exception)
+        }
     } 
     
 
@@ -24,7 +38,6 @@ export default function AddPricePage() {
         setProductId(e.target.value);
     }
         
-   // console.log(packagelist);
     return (
         <DashboardLayout>
 
@@ -42,7 +55,7 @@ export default function AddPricePage() {
                     {productlist !== undefined && productlist.data.data.map( product => <option key={product.id}  value={product.id}>{product.name}</option>)}
                     </select>  
                 { packagelist?.data.data.map((conditions: any, setProductId: any) =>
-                    <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2 border border-color:black">
+                    <div className="grid grid-cols-1 gap-2 mt-4 sm:grid-cols-2 border border-color:black">
                         <div>
                             <label htmlFor="conditions" className="text-gray-700 dark:text-gray-200">Conditionnement</label>
                             <input value={conditions.package} {...register(`conditions.${setProductId}.package`) } type="number" min={0} name="package" id="package" className="block w-full px-2 py-1 mt-1 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"/>
