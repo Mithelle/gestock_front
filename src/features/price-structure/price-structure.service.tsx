@@ -4,12 +4,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function addPrice(data:any){
 
-    return axiosInstance.post("/api/newStucture", data);
+    return axiosInstance.post("/api/newStructure", data);
  }
 
 export const useUpdatePrice =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.put('/api/alterStucture/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterStructure/' + data.id, data)
     })
 }
 
@@ -22,7 +22,7 @@ export const useDeletePrice =  () => {
 export const useGetOnePrice =  (id: any) => {
     return useQuery({
         queryKey: ['shop', id],
-        queryFn: () => axiosInstance.get('/api/stucture/' + id)
+        queryFn: () => axiosInstance.get('/api/structure/' + id)
     })
 }
 

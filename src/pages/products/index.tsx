@@ -1,5 +1,5 @@
 import DashboardLayout from "@/component/Layout";
-import { useDeleteProduct, useGetAllProduct } from "@/features/Product/product.service";
+import { useDeleteProduct, useGetAllProduct } from "@/features/product/product.service";
 import { useGetAllProductByProductFamily, useGetAllProductFamily } from "@/features/productFamily/productFamily.service";
 import { Button, Select, Table } from "antd";
 import Link from "next/link";

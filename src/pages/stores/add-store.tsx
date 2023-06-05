@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useGetAllShop } from "@/features/shop/shop.service";
 import DashboardLayout from "@/component/Layout";
 import { Storage } from "@/features/store/store.service";
+import Link from "next/link";
 
 export default function StorePage() {
     const router = useRouter();
@@ -46,7 +47,13 @@ export default function StorePage() {
                 <select {...register("shop_id")} name="shop_id" id="shop_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">*choisissez un site*</option>
                     { shoplist !== undefined && shoplist.data.data.map( shop => <option key={shop.id}  value={shop.id}>{shop.name}</option>) }
-                    </select>            
+                    </select> 
+                    <div className="flex mt-2">
+                    <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">
+                                    <Link href="/shops/add-shop">Ajouter une annexe</Link>
+                    </button>
+                    </div>
+           
                </div>
 
     

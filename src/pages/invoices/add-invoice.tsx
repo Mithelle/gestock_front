@@ -2,14 +2,18 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
-import { addSupply } from "@/features/supply/supply.service";
 import { useGetAllSupplier } from "@/features/supplier/supplier.service";
 import { useGetAllProduct } from "@/features/product/product.service";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetAllPackageByProduct } from "@/features/package/packaging.service";
 import Link from "next/link";
+import { addInvoice } from "@/features/invoice/invoice.service";
+import { useGetAllCustomer } from "@/features/customer/customer.service";
+import { useGetAllShop } from "@/features/shop/shop.service";
+import { useGetAllStore } from "@/features/store/store.service";
+import { useGetAllUser } from "@/features/user/user.sevice";
 
-export default function AddSupplyPage() {
+export default function AddInvoicePage() {
     const router = useRouter();
     const { register, handleSubmit, control, watch, formState:{ errors } } = useForm();
     const { fields, prepend, remove } = useFieldArray({
@@ -22,20 +26,21 @@ export default function AddSupplyPage() {
     const { data: supplierlist } = useGetAllSupplier();
     const { data: productlist } = useGetAllProduct();
     const { data: packagelist } =  useGetAllPackageByProduct(productId);
+    const { data: customerlist } =  useGetAllCustomer();
+    const { data: shoplist } =  useGetAllShop();
+    const { data: storelist } =  useGetAllStore();
+    const { data: userlist } =  useGetAllUser();
 
-    useEffect(()=>{
-
-    },[fields])
 
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await addSupply (data)
+         const response =  await addInvoice(data)
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId
            });
-         router.push('/supplies/');
+         router.push('/invoices/');
         }
         catch(exception){
             toast.error('Echec', {
@@ -53,28 +58,7 @@ export default function AddSupplyPage() {
     function handleSelectedPackage(e){
         setPackageId(e.target.value);
     }
-    
-    {/*function addProduct(){
-        setProduct_item([...product_item, {
-            product_id:'',
-            package_id:'',
-            quantity:0
-        } as unknown as never
-    ])
-    }
-     console.log(packagelist);
-    
-    function removeProduct(index){
-        const updateProduct_item = [...product_item];
-        updateProduct_item.splice(index, 1);
-        setProduct_item(updateProduct_item);
-    }
-
-    function handleChange(index, e){
-        const updateProduct_item = [...product_item];
-        updateProduct_item[index].value = e.target.value;
-        setProduct_item(updateProduct_item);
-    };*/}
+    //console.log(packagelist);
 
     return (
 
@@ -87,7 +71,7 @@ export default function AddSupplyPage() {
     
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full mt-4">
-                    <input {...register("supplyDate")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="date" placeholder="Date de l'approvisionnement" aria-label="date" />
+                    <input {...register("invoiceDate")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="date" placeholder="Date de la facture" aria-label="date" />
                 </div>
                 <div>
                 <select {...register("supplier_id")} name="supplier_id" id="supplier_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
@@ -99,6 +83,41 @@ export default function AddSupplyPage() {
                           <Link href="/suppliers/add-supplier">Ajouter un fournisseur</Link>
                     </button>
                     </div>
+                </div>
+                <div>
+                <select {...register("customer_id")} name="customer_id" id="customer_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                    <option value="">Choisissez un client</option>
+                    { customerlist !== undefined && customerlist.data.data.map( customer => <option key={customer.id}  value={customer.id}>{customer.name}</option>) }
+                </select> 
+                <div className="flex mt-2">
+                    <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">
+                          <Link href="/customers/add-customer">Ajouter un client</Link>
+                    </button>
+                    </div>
+                </div>
+                <div className="w-full mt-4">
+                    <input {...register("term")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Mode de paiement" aria-label="term" />
+                </div>
+                <div className="w-full mt-4">
+                    <input {...register("invoiceNum")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Numero de la facture" aria-label="date" />
+                </div>
+                <div>
+                <select {...register("shop_id")} name="shop_id" id="shop_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                    <option value="">Choisissez un point de vente</option>
+                    { shoplist !== undefined && shoplist.data.data.map( shop => <option key={shop.id}  value={shop.id}>{shop.name}</option>) }
+                </select> 
+                </div>
+                <div>
+                <select {...register("depot_id")} name="depot_id" id="depot_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                    <option value="">Choisissez un depot</option>
+                    { storelist !== undefined && storelist.data.data.map( store => <option key={store.id}  value={store.id}>{store.name}</option>) }
+                </select> 
+                </div>
+                <div>
+                <select {...register("user_id")} name="user_id" id="user_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                    <option value="">Choisissez un vendeur</option>
+                    { userlist !== undefined && userlist.data.data.map( user => <option key={user.id}  value={user.id}>{user.name}</option>) }
+                </select> 
                 </div>
 
                 <div className="block items-center justify-between mt-6">
@@ -126,7 +145,16 @@ export default function AddSupplyPage() {
                     <input {...register(`conditions.${index}.package`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Conditionnement" aria-label="package" />
                 </div>*/}
                 <div className="w-full mt-4">
-                    <input {...register(`supply.${index}.quantity`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Quanité d'approvisionnement" aria-label="qte" />
+                    <input {...register(`invoice.${index}.quantity`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Quanité vendu" aria-label="qte" />
+                </div>
+                <div className="w-full mt-4">
+                    <input {...register(`invoice.${index}.pu_ht`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Prix HT" aria-label="qte" />
+                </div>
+                <div className="w-full mt-4">
+                    <input {...register(`invoice.${index}.pu_ttc`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Prix TTC" aria-label="qte" />
+                </div>
+                <div className="w-full mt-4">
+                    <input {...register(`invoice.${index}.amount_ht`) } className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Montant HT" aria-label="qte" />
                 </div>
             </div>
         )}

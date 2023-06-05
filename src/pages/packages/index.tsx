@@ -1,6 +1,6 @@
 import DashboardLayout from "@/component/Layout";
-import { useGetAllPackageByProduct, useGetAllProduct } from "@/features/Product/product.service";
-import { useDeletePackage } from "@/features/package/packaging.service";
+import { useGetAllProduct } from "@/features/product/product.service";
+import { useDeletePackage, useGetAllPackageByProduct } from "@/features/package/packaging.service";
 import { Button, Select, Table } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";

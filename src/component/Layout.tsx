@@ -69,7 +69,7 @@ export default function DashboardLayout({children}){
           <Link href="/stores">Dépot</Link>
           </Menu.Item>
           <Menu.Item>
-          <Link href="/users" >Utlisateur</Link>
+          <Link href="/users" >Utilisateur</Link>
           </Menu.Item>
           <Menu.Item>
           <Link href="/customers" >Client</Link>
@@ -96,13 +96,19 @@ export default function DashboardLayout({children}){
           <Link href="/deliveries" >Livraison</Link>
         </Menu.Item>
         <Menu.Item>
-          <Link href="/commands" >Command</Link>
+          <Link href="/commands" >Commande</Link>
         </Menu.Item>
         <Menu.Item>
           <Link href="/supplies" >Approvisionnement</Link>
         </Menu.Item>
         <Menu.Item>
           <Link href="/inventories" >Inventaire</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/invoices" >Facture</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/invoices/visit" >Facture2</Link>
         </Menu.Item>
        </Menu>
       </Sider>

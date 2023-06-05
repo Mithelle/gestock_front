@@ -3,7 +3,7 @@ import Link from "next/link";
 import {  useRouter } from "next/router";
 import { Button, Select, Table } from "antd";
 import { useDeletePrice, useGetAllPrice } from "@/features/price-structure/price-structure.service";
-import { useGetAllPriceByProduct, useGetAllProduct } from "@/features/Product/product.service";
+import { useGetAllPriceByProduct, useGetAllProduct } from "@/features/product/product.service";
 import { useState } from "react";
 
 export default function PricelistPage(){
@@ -31,7 +31,7 @@ return(
     <DashboardLayout>
 
 <Select
-        defaultValue="choisissez un product"
+        defaultValue="choisissez un produit"
         style={{ width: 200 }}
         onChange={onSelectProduct}
     > 
@@ -55,10 +55,9 @@ return(
     <Table.Column title='Action'  
                     render={(value, record: any) =>{
                         return <>
-                               <Button type="link" href={"/priceStructures/edit/" + record.id } >Modifier</Button>
+                               <Button type="link" href={"/price-structures/edit/" + record.id } >Modifier</Button>
                                <Button type="link" onClick={ () => onDelete(value)}>Supprimer</Button>
-                             switch here  <Button type="link" >Supprimer</Button>
-                             <Button type="link" href={"/priceStructures/visit /" + record.id } >Voir</Button>
+                             <Button type="link" href={"/price-structures/visit /" + record.id } >Voir</Button>
                         </>
                        
                     }}

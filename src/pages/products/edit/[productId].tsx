@@ -2,8 +2,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useGetOneProduct, useUpdateProduct } from "@/features/Product/product.service";
+import { useGetOneProduct, useUpdateProduct } from "@/features/product/product.service";
 import { useGetAllProductFamily } from "@/features/productFamily/productFamily.service";
+import { useGetAllMeasure } from "@/features/measure/measure.service";
 
 export default function ProductPage() {
     const router = useRouter();
@@ -11,40 +12,36 @@ export default function ProductPage() {
 
     const { data: oneProduct } = useGetOneProduct(router.query.productId);
     const updateProduct = useUpdateProduct();
-    const allProductFamily = useGetAllProductFamily();
+    const { data: productFamilylist, isLoading  } = useGetAllProductFamily();
+    const { data: measurementlist } = useGetAllMeasure();
+
     
-    console.log(allProductFamily);
-
-
     useEffect(() => {
         if(oneProduct != undefined) {
             reset({
-                ref: oneProduct?.data?.product?.ref,
-                name: oneProduct?.data?.product?.name,
-                description: oneProduct?.data?.product?.description,
+                ref: oneProduct?.data?.data?.ref,
+                name: oneProduct?.data?.data?.name,
+                description: oneProduct?.data?.data?.description,
             })
         }
     }, [oneProduct])
-
+  console.log(oneProduct);
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
-        updateProduct.mutate({ ...data, id: router.query.productFamilyId})
-
-        toast.success('Produit modifié avec succès!', {
-            id:toastId
-        })
-        toast.error('Echec!', {
-            id:toastId
+        updateProduct.mutate({ ...data, id: router.query.productFamilyId}, {
+        onSuccess() {
+            toast.success('Produit modifié avec succès!', {
+                id:toastId
+            })
+            router.push('/products')
+        }, 
+        onError() {
+            toast.error('Echec!', {
+                id:toastId
+            })
+        }
     })
-
-    }
-
-    if(updateProduct.isSuccess) {
-        router.push('/products')
-    }
-    
-    if(updateProduct.isError) {
-
+        
     }
     
     
@@ -66,14 +63,14 @@ export default function ProductPage() {
                 </div>
                 <div>
                 <select {...register("productFamily_id")} name="productFamily_id" id="productFamily_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
-                    <option value="">Choisissez un site</option>
+                    <option value="">Choisissez une famille de produit</option>
                     { productFamilylist !== undefined && productFamilylist.data.data.map( productFamily => <option key={productFamily.id}  value={productFamily.id}>{productFamily.name}</option>) }
                     </select>            
                </div>
                <div>
-                <select {...register("measurement_id")} name="measurement_id" id="measurement_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select {...register("measure_id")} name="measure_id" id="measure_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez une unité de mesure</option>
-                    { measurementlist !== undefined && measurementlist.data.data.map( measurement => <option key={measurement.id}  value={measurement.id}>{measurement.name}</option>) }
+                    { measurementlist !== undefined && measurementlist.data.data.map( measurement => <option key={measurement.id}  value={measurement.id}>{measurement.unit}</option>) }
                     </select>            
                </div>
                <div className="w-full mt-1">

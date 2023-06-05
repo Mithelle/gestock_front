@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
 import { useGetAllProductFamily } from "@/features/productFamily/productFamily.service";
-import { addProduct } from "@/features/Product/product.service";
+import { addProduct } from "@/features/product/product.service";
 import { useGetAllMeasure } from "@/features/measure/measure.service";
 
 export default function AddProductPage() {

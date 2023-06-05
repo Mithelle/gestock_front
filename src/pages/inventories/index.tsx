@@ -72,9 +72,10 @@ return(
     </table>*/}
 
     <Table dataSource={inventorylist?.data.data}>
-    <Table.Column title='Conditionnement' dataIndex={"package"} key={"id"} />
-    <Table.Column title='Depot' dataIndex={"depot"} key={"id"} />
+    <Table.Column title='Conditionnement' dataIndex={"package"} key={"package_id"} />
+    <Table.Column title='Depot' dataIndex={"depot_name"} key={"depot_id"} />
     <Table.Column title='Quantité' dataIndex={"quantity"} key={"id"} />
+    <Table.Column title='Note' dataIndex={"notes"} key={"id"} />
     <Table.Column title='Action'  
                     render={(value, record: any) =>{
                         return <>

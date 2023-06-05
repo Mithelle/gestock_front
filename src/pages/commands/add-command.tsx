@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
 import {  addCommand } from "@/features/command/command.service";
 import { useGetAllSupplier } from "@/features/supplier/supplier.service";
-import { useGetAllProduct } from "@/features/Product/product.service";
+import { useGetAllProduct } from "@/features/product/product.service";
 import { useState } from "react";
 import { useGetAllPackage } from "@/features/package/packaging.service";
 

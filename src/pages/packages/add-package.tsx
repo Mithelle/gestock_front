@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
-import { useGetAllProduct } from "@/features/Product/product.service";
+import { useGetAllProduct } from "@/features/product/product.service";
 import { addPackage } from "@/features/package/packaging.service";
 import { useGetAllMeasure } from "@/features/measure/measure.service";
 
