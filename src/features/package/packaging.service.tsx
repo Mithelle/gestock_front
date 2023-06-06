@@ -1,5 +1,5 @@
 import axiosInstance from "@/utils/axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 
 
 export function addPackage(data:any){
@@ -31,6 +31,18 @@ export const useGetAllPackageByProduct =  (product_id: any) => {
     return useQuery({
         queryKey: ['package', product_id],
         queryFn: () => axiosInstance.get('/api/packages/' + product_id)
+    })
+}
+
+export const useGetMultiplePackageByProduct =  (products: string[]) => {
+    return useQueries({
+        queries: products.map((product_id) =>{
+            return {
+                queryKey: ['packages', product_id],
+                queryFn: () => axiosInstance.get('/api/packages/' + product_id)
+            }
+        }
+        )
     })
 }
 

@@ -6,7 +6,7 @@ import { addSupply } from "@/features/supply/supply.service";
 import { useGetAllSupplier } from "@/features/supplier/supplier.service";
 import { useGetAllProduct } from "@/features/product/product.service";
 import { useEffect, useState } from "react";
-import { useGetAllPackageByProduct } from "@/features/package/packaging.service";
+import { useGetAllPackageByProduct, useGetMultiplePackageByProduct } from "@/features/package/packaging.service";
 import Link from "next/link";
 
 export default function AddSupplyPage() {
@@ -16,17 +16,25 @@ export default function AddSupplyPage() {
         control,
         name:"supply",
     });
-    const [productId, setProductId] = useState();
+    const [productIds, setProductIds] = useState([]);
     const [packageId, setPackageId] = useState('');
-    const [product_item, setProduct_item] = useState([]);
     const { data: supplierlist } = useGetAllSupplier();
     const { data: productlist } = useGetAllProduct();
-    const { data: packagelist } =  useGetAllPackageByProduct(productId);
-
+    const multiplePackage =  useGetMultiplePackageByProduct(productIds);
+     console.log(multiplePackage);
     useEffect(()=>{
+        if(fields.length>0){
+                setProductIds(()=> remapProductIds(fields))
+        }
+    },[watch("supply.*.product_id")])
 
-    },[fields])
-
+    function remapProductIds(arr: any[]){
+       return arr.map((_,index)=>{
+            const productId = watch(`supply.${index}.product_id`)
+            return productId
+        })
+    }
+       // console.log(multiplePackage);
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
@@ -45,16 +53,8 @@ export default function AddSupplyPage() {
         }
     } 
     
-    function handleSelectedProduct(e){
-        setProductId(e.target.value);
-        setPackageId('');
-    }
-
-    function handleSelectedPackage(e){
-        setPackageId(e.target.value);
-    }
     
-    {/*function addProduct(){
+    /*function addProduct(){
         setProduct_item([...product_item, {
             product_id:'',
             package_id:'',
@@ -74,7 +74,7 @@ export default function AddSupplyPage() {
         const updateProduct_item = [...product_item];
         updateProduct_item[index].value = e.target.value;
         setProduct_item(updateProduct_item);
-    };*/}
+    };*/
 
     return (
 
@@ -113,13 +113,13 @@ export default function AddSupplyPage() {
                 </svg>
 
                 <div>
-                <select {...register(`supply.${index}.product_id`)}  value={productId}  name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select {...register(`supply.${index}.product_id`)} name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez un produit</option>
                     { productlist !== undefined && productlist.data.data.map( product => <option key={product.id} value={product.id}>{product.name}</option>) }
                 </select>
-                <select {...register(`supply.${index}.package_id`)} disabled={!productId}  value={packageId} name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select {...register(`supply.${index}.package_id`)} name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez le conditionnement</option>
-                    { packagelist !== undefined && packagelist.data.data.map( packages => <option key={packages.id}  value={packages.id}>{packages.package}</option>) }
+                     { multiplePackage.length > 0 && multiplePackage[index]  && multiplePackage[index].data !== undefined && multiplePackage[index].data?.data.data.map( packages => <option key={packages.id}  value={packages.id}>{packages.package}</option>) }
                 </select>   
                 </div> 
                 {/*<div className="w-full mt-4">
