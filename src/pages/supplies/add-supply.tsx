@@ -12,21 +12,17 @@ import Link from "next/link";
 export default function AddSupplyPage() {
     const router = useRouter();
     const { register, handleSubmit, control, watch, formState:{ errors } } = useForm();
-    const { fields, prepend, remove } = useFieldArray({
-        control,
-        name:"supply",
-    });
-    const [productIds, setProductIds] = useState([]);
+
+    const [packageId, setPackageId] = useState('');
+    const [productId, setProductId] = useState();
     const [openModal, setOpenModal] = useState(false);
     const { data: supplierlist } = useGetAllSupplier();
     const { data: productlist } = useGetAllProduct();
-    const multiplePackage =  useGetMultiplePackageByProduct(productIds);
-     console.log(multiplePackage);
-    useEffect(()=>{
-        if(fields.length>0){
-                setProductIds(()=> remapProductIds(fields))
-        }
-    },[watch("supply.*.product_id")])
+    const packagelist =  useGetAllPackageByProduct(productId);
+
+    const [index, setIndex] = useState('');
+    const [conditions, setConditions] = useState<Record<string,any>[]>([]);
+    const watchProduct = watch(`supply.${index}.product_id`)
 
     function remapProductIds(arr: any[]){
        return arr.map((_,index)=>{
@@ -57,6 +53,24 @@ export default function AddSupplyPage() {
         setOpenModal(true);
     }
     
+    function append(payload: Record<string, any>){
+        setConditions((prev) => [...prev, payload]);
+    }
+
+    function remove(index: number){
+        setConditions((prev) => prev.filter((_,idx) => index !== idx))
+    }
+
+    function handleProductChange(e){
+        setProductId(e.target.value);
+        setPackageId('');
+    }
+    
+    function handlePackageChange(e){
+        setPackageId(e.target.value);
+    }
+    console.log(packagelist);
+
     return (
         
         <DashboardLayout>
@@ -82,7 +96,7 @@ export default function AddSupplyPage() {
             </div>
 
             <div className="block items-center justify-between mt-6">
-            <button type="button" onClick={()=> prepend({ quantity:"" })} className="block ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            <button type="button" onClick={onOpen} className="block ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                     Ajouter un produit
                 </button>
             </div>
@@ -91,11 +105,13 @@ export default function AddSupplyPage() {
             <div className="grid grid-cols-1 gap-2 mt-4 border border-color:black  bg-white p-8 rounded-md">
 
                 <div>
-                <select name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select onChange={handleProductChange} name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez un produit</option>
+                    { productlist !== undefined && productlist.data.data.map( product => <option key={product.id} value={product.id}>{product.name}</option>) }
                 </select>
-                <select name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select onChange={handlePackageChange} name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez le conditionnement</option>
+                    { packagelist !== undefined && packagelist.data.data.map( packages => <option key={packages.id}  value={packages.id}>{packages.package}</option>) }
                 </select>   
                 </div> 
                 <div className="w-full mt-4">

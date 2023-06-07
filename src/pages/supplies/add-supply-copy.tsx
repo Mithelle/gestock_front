@@ -21,7 +21,7 @@ export default function AddSupplyPage() {
     const { data: supplierlist } = useGetAllSupplier();
     const { data: productlist } = useGetAllProduct();
     const multiplePackage =  useGetMultiplePackageByProduct(productIds);
-     console.log(watch);
+     console.log(watch());
     useEffect(()=>{
         if(fields.length>0){
                 setProductIds(()=> remapProductIds(fields))
