@@ -108,7 +108,7 @@ export default function DashboardLayout({children}){
           <Link href="/invoices" >Facture</Link>
         </Menu.Item>
         <Menu.Item>
-          <Link href="/invoices/visit" >Facture2</Link>
+          <Link href="/invoices/index2" >Facture2</Link>
         </Menu.Item>
        </Menu>
       </Sider>

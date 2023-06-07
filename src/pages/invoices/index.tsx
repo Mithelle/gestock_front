@@ -1,212 +1,50 @@
 import DashboardLayout from "@/component/Layout";
-import { useGetAllProduct } from "@/features/product/product.service";
-import { useDeletePackage, useGetAllPackageByProduct } from "@/features/package/packaging.service";
-import { Button, Select, Table } from "antd";
+import { useDeleteInvoice, useGetAllInvoice } from "@/features/invoice/invoice.service";
+import { Button, Table } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
-export default function PackagelistPage(){
-    const [productId, setProductId] = useState('');
+export default function InvoicelistPage(){
         const router = useRouter();
-        const { data: packagelist } = useGetAllPackageByProduct(productId);
-        const {data: allProduct } = useGetAllProduct();
-        //const { data: measurelist } = useGetAllMeasureByProduct(productId);
+        const {data: allInvoice } = useGetAllInvoice();
 
-        const deletePackage = useDeletePackage();
+        const deleteInvoice = useDeleteInvoice();
         function onDelete(id: string){
-            deletePackage.mutate(id)
+            deleteInvoice.mutate(id)
             router.reload();
         }
-        function onSelectProduct(value: string){
-            setProductId(value)
-         }
+          
 return(
-    <DashboardLayout>
-
-<section className="py-20 bg-black">
- <div className="max-w-5xl mx-auto py-16 bg-white">
-  <article className="overflow-hidden">
-   <div className="bg-[white] rounded-b-md">
-    <div className="p-9">
-     <div className="space-y-6 text-slate-700">
-      <img className="object-cover h-12" src=""/>
-
-      <p className="text-xl font-extrabold tracking-tight uppercase font-body">
-       Nom de L'entreprise
-      </p>
+ <DashboardLayout>
+    
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="flex mt-2">
+    <h3 className="mt-3 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Nos factures</h3>
+    <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">
+                    <Link href="/invoices/add-invoice">+ AJOUTER</Link>
+     </button>
      </div>
-    </div>
-    <div className="p-9">
-     <div className="flex w-full">
-      <div className="grid grid-cols-4 gap-12">
-       <div className="text-sm font-light text-slate-500">
-        <p className="text-sm font-normal text-slate-700">
-         Invoice Detail:
-        </p>
-        <p>Unwrapped</p>
-        <p>Fake Street 123</p>
-        <p>San Javier</p>
-        <p>CA 1234</p>
-       </div>
-       <div className="text-sm font-light text-slate-500">
-        <p className="text-sm font-normal text-slate-700">Billed To</p>
-        <p>The Boring Company</p>
-        <p>Tesla Street 007</p>
-        <p>Frisco</p>
-        <p>CA 0000</p>
-       </div>
-       <div className="text-sm font-light text-slate-500">
-        <p className="text-sm font-normal text-slate-700">Invoice Number</p>
-        <p>000000</p>
 
-        <p className="mt-2 text-sm font-normal text-slate-700">
-         Date of Issue
-        </p>
-        <p>00.00.00</p>
-       </div>
-       <div className="text-sm font-light text-slate-500">
-        <p className="text-sm font-normal text-slate-700">Terms</p>
-        <p>0 Days</p>
+<Table dataSource={allInvoice?.data.data}>
+<Table.Column title='Client' dataIndex={"customer_id"} key={"id"} />
+<Table.Column title='Facture n°' dataIndex={"InvoiceCod"} key={"id"} />
+<Table.Column title='Date de la facture' dataIndex={"invoiceDat"} key={"id"} />
+    <Table.Column title='Action'  
+                    render={(value, record: any) =>{
+                        return <>
+                              <Button type="link" href={"/invoices/visit/" + record.id } >Voir</Button> 
+                             <Button type="link" href={"/invoices/edit/" + record.id } >Modifier</Button>
+                               <Button type="link" onClick={ () => onDelete(value)}>Supprimer</Button>
+                        </>
+                       
+                    }}
+                    dataIndex={"id"}
+                    key={"id"} />
+    </Table>
 
-        <p className="mt-2 text-sm font-normal text-slate-700">Due</p>
-        <p>00.00.00</p>
-       </div>
-      </div>
-     </div>
-    </div>
-
-    <div className="p-9">
-     <div className="flex flex-col mx-0 mt-8">
-      <table className="min-w-full divide-y divide-slate-500">
-       <thead>
-        <tr>
-         <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-normal text-slate-700 sm:pl-6 md:pl-0">
-          Description
-         </th>
-         <th scope="col" className="hidden py-3.5 px-3 text-right text-sm font-normal text-slate-700 sm:table-cell">
-          Quantity
-         </th>
-         <th scope="col" className="hidden py-3.5 px-3 text-right text-sm font-normal text-slate-700 sm:table-cell">
-          Rate
-         </th>
-         <th scope="col" className="py-3.5 pl-3 pr-4 text-right text-sm font-normal text-slate-700 sm:pr-6 md:pr-0">
-          Amount
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr className="border-b border-slate-200">
-         <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
-          <div className="font-medium text-slate-700">Tesla Truck</div>
-          <div className="mt-0.5 text-slate-500 sm:hidden">
-           1 unit at $0.00
-          </div>
-         </td>
-         <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-          48
-         </td>
-         <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-          $0.00
-         </td>
-         <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-          $0.00
-         </td>
-        </tr>
-        <tr className="border-b border-slate-200">
-         <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
-          <div className="font-medium text-slate-700">
-           Tesla Charging Station
-          </div>
-          <div className="mt-0.5 text-slate-500 sm:hidden">
-           1 unit at $75.00
-          </div>
-         </td>
-         <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-          4
-         </td>
-         <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-          $0.00
-         </td>
-         <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-          $0.00
-         </td>
-        </tr>
-
-        {/*} Here you can write more products/tasks that you want to charge for */}
-       </tbody>
-       <tfoot>
-        <tr>
-         <th scope="row" col-span="3" className="hidden pt-6 pl-6 pr-3 text-sm font-light text-right text-slate-500 sm:table-cell md:pl-0">
-          Subtotal
-         </th>
-         <th scope="row" className="pt-6 pl-4 pr-3 text-sm font-light text-left text-slate-500 sm:hidden">
-          Subtotal
-         </th>
-         <td className="pt-6 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-          $0.00
-         </td>
-        </tr>
-        <tr>
-         <th scope="row" col-span="3" className="hidden pt-6 pl-6 pr-3 text-sm font-light text-right text-slate-500 sm:table-cell md:pl-0">
-          Discount
-         </th>
-         <th scope="row" className="pt-6 pl-4 pr-3 text-sm font-light text-left text-slate-500 sm:hidden">
-          Discount
-         </th>
-         <td className="pt-6 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-          $0.00
-         </td>
-        </tr>
-        <tr>
-         <th scope="row" col-span="3" className="hidden pt-4 pl-6 pr-3 text-sm font-light text-right text-slate-500 sm:table-cell md:pl-0">
-          Tax
-         </th>
-         <th scope="row" className="pt-4 pl-4 pr-3 text-sm font-light text-left text-slate-500 sm:hidden">
-          Tax
-         </th>
-         <td className="pt-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-          $0.00
-         </td>
-        </tr>
-        <tr>
-         <th scope="row" col-span="3" className="hidden pt-4 pl-6 pr-3 text-sm font-normal text-right text-slate-700 sm:table-cell md:pl-0">
-          Total
-         </th>
-         <th scope="row" className="pt-4 pl-4 pr-3 text-sm font-normal text-left text-slate-700 sm:hidden">
-          Total
-         </th>
-         <td className="pt-4 pl-3 pr-4 text-sm font-normal text-right text-slate-700 sm:pr-6 md:pr-0">
-          $0.00
-         </td>
-        </tr>
-       </tfoot>
-      </table>
-     </div>
-    </div>
-
-    <div className="mt-48 p-9">
-     <div className="border-t pt-9 border-slate-200">
-      <div className="text-sm font-light text-slate-700">
-       <p>
-        Payment terms are 14 days. Please be aware that according to the
-        Late Payment of Unwrapped Debts Act 0000, freelancers are
-        entitled to claim a 00.00 late fee upon non-payment of debts
-        after this time, at which point a new invoice will be submitted
-        with the addition of this fee. If payment of the revised invoice
-        is not received within a further 14 days, additional interest
-        will be charged to the overdue account and a statutory rate of
-        8% plus Bank of England base of 0.5%, totalling 8.5%. Parties
-        cannot contract out of the Act’s provisions.
-       </p>
-      </div>
-     </div>
-    </div>
-   </div>
-  </article>
- </div>
-</section>
-
+</div>
 </DashboardLayout>
+
 );
-}
+
+  }

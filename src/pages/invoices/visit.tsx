@@ -1,8 +1,6 @@
 import DashboardLayout from "@/component/Layout";
 import { useGetAllProduct } from "@/features/product/product.service";
 import { useDeletePackage, useGetAllPackageByProduct } from "@/features/package/packaging.service";
-import { Button, Select, Table } from "antd";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -28,6 +26,7 @@ return(
             <div className="w-3/5 bg-white shadow-lg">
                 <div className="flex justify-between p-4">
                     <div>
+                    <img className="object-cover h-12" src="" alt="Logo de l'entreprise"/>
                         <h1 className="text-3xl italic font-extrabold tracking-widest text-indigo-900">Nom de l'entreprise</h1>
                         <p className="text-base">Description de l'entreprise</p>
                     </div>
@@ -41,7 +40,7 @@ return(
                                         d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                                 </svg>
                                 <span className="text-sm">
-                                    www.email.com
+                                    www.email.com 
                                 </span>
                                 <span className="text-sm">
                                     www.resauxsociaux.com
@@ -66,18 +65,18 @@ return(
                 <div className="w-full h-0.5 bg-indigo-900"></div>
                 <div className="flex justify-between p-4">
                     <div>
-                        <h6 className="font-bold">Date de la facture : <span className="text-sm font-medium"> 12/12/2022</span></h6>
+                        <h6 className="font-bold">Date de la facture: <span className="text-sm font-medium"> 12/12/2022</span></h6>
                     </div>
                     <div className="w-40">
                         <address className="text-sm">
-                            <span className="font-bold">Client : </span>
-                            uhedhzvcbqxnhsj,kl
+                            <span className="font-bold">Client: </span>
+                            uhedhzvcbqxnhsj
                         </address>
                     </div>
                     <div className="w-40">
                         <address className="text-sm">
-                            <span className="font-bold">Vendeur :</span>
-                            okkd,cdhdjddjddnnbncncbcbhed,                      
+                            <span className="font-bold">Vendeur: </span>
+                            odjddjddnnbncncbcb                     
                          </address>
                     </div>
                     <div></div>

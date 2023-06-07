@@ -25,10 +25,9 @@ export default function ProductPage() {
             })
         }
     }, [oneProduct])
-  console.log(oneProduct);
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
-        updateProduct.mutate({ ...data, id: router.query.productFamilyId}, {
+        updateProduct.mutate({ ...data, id: router.query.productId}, {
         onSuccess() {
             toast.success('Produit modifié avec succès!', {
                 id:toastId
