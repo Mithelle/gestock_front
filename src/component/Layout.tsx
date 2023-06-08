@@ -1,145 +1,85 @@
-import React, { useState } from 'react';
-import {
-  BellOutlined,
-  DesktopOutlined,
-  FileOutlined,
-  HomeOutlined,
-  PieChartOutlined,
-  SettingOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import React, {PropsWithChildren, useState} from 'react';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import AuthLayout from './auth-layout';
 import Link from 'next/link';
+import { BeakerIcon, BellAlertIcon, HomeIcon, HomeModernIcon } from '@heroicons/react/24/solid'
 
-const { Header, Content, Footer, Sider } = Layout;
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
+const routesLink = [
+  { href: "/admin", name: "Admin", icon: HomeIcon},
+  { href: "/shops", name: "Boutiques", icon: HomeIcon},
+  { href: "/stores", name: "Stores", icon: HomeIcon},
+  { href: "/users", name: "Utilisateurs", icon: HomeIcon},
+  { href: "/customers", name: "Clients", icon: HomeIcon},
+  { href: "/suppliers", name: "Fournisseurs", icon: HomeIcon},
+  { href: "/products", name: "Produits", icon: HomeIcon},
+  { href: "/productFamilies", name: "Famille de produit", icon: HomeIcon},
+  { href: "/measures", name: "Unité de mesure", icon: HomeIcon},
+  { href: "/packages", name: "Package", icon: HomeIcon},
+  { href: "/price-structures", name: "Conditionnement", icon: HomeIcon},
+  { href: "/deliveries", name: "Livraison", icon: HomeIcon},
+  { href: "/commands", name: "Commandes", icon: HomeIcon},
+  { href: "/supplies", name: "Supplies", icon: HomeIcon},
+  { href: "/inventories", name: "Inventories", icon: HomeIcon},
+  { href: "/invoices", name: "Factures", icon: HomeIcon},
+  { href: "/invoices/index2", name: "Factures 2", icon: HomeIcon},
 ];
 
-export default function DashboardLayout({children}){
+export default function DashboardLayout({title = 'Titre de la page', children}: PropsWithChildren<{title?: string}>){
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   return (
-    <AuthLayout>
+    // <AuthLayout>
+      <main className="flex h-screen">
+          <ul className="w-56 flex-grow bg-gray-100 p-3 font-semibold text-gray-800 overflow-y-scroll">
+              <li className="flex h-[80px] items-center pl-3">
+                  <span className="">GESTOCK</span>
+              </li>
+              {routesLink.map((route) => (
+                  <li key={route.href}>
+                      <CustomLink href={route.href} name={route.name} Icon={route.icon} />
+                  </li>
+              ))}
 
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" 
-       > 
-        <Menu.Item style={{display:'flex'}}>
-        <HomeOutlined/>
-          <Link href="/admin">Acceuil</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/shops">Annexe</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/stores">Dépot</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/users" >Utilisateur</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/customers" >Client</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/suppliers" >Fournisseur</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/products" >Produit</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/productFamilies" >Famille de produits</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/measures" >Unités de mesure</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/packages" >Conditionnements</Link>
-          </Menu.Item>
-          <Menu.Item>
-          <Link href="/price-structures" >Structure de prix</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/deliveries" >Livraison</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/commands" >Commande</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/supplies" >Approvisionnement</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/inventories" >Inventaire</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/invoices" >Facture</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/invoices/index2" >Facture2</Link>
-        </Menu.Item>
-       </Menu>
-      </Sider>
-      <Layout className="site-layout">
-        <Header style={{ padding: 0, background:'blue', borderRadius: '5%', marginLeft: '30px', marginRight: '30px'}}>
+          </ul>
 
-        <div style={{margin: '0 0 0 700px', display: 'flex' }} >
-          <UserOutlined/> Se connecter
-        <SettingOutlined />
-        <BellOutlined />
-        </div>
+          <div className="w-[calc(100%-14rem)]">
+              <header className="flex h-[80px] items-center justify-between border-b-2 px-4">
+                  <h4>{title}</h4>
+                  <div>
+                      <button className="flex items-center gap-x-2">
+                          <div className="text-right text-sm">
+                              <p>Nom et Prénom</p>
+                              <p>Email</p>
+                          </div>
+                          <img alt="Photo de profile" className="aspect-square h-12 w-12 rounded-full object-cover"
+                               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"/>
+                      </button>
+                  </div>
+              </header>
 
-        </Header>
-        <Content style={{ margin: '0 16px' }}>
-        <body className="m-0 font-sans text-base antialiased font-normal dark:bg-slate-700 leading-default bg-gray-50 text-slate-500">
-        <div className="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
-
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className=''>
-            {children}
+              <div className="h-[calc(100%-80px)] p-3">
+                  {children}
+              </div>
           </div>
-          </body>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant Mith</Footer>
-      </Layout>
-    </Layout>
-    </AuthLayout>
+      </main>
+     // </AuthLayout>
   );
 };
 
+
+function CustomLink(props: { href: string, name: string, Icon: any }) {
+  const { href, name, Icon } = props;
+  return  (
+      <Link href={href} className='flex items-center text-gray-600 w-full p-2 mt-2 text-sm rounded-lg hover:bg-gray-200 '>
+        <Icon className='w-6 h-6 pr-2 text-gray-500 ' />
+        <span>
+          {name}
+        </span>
+      </Link>
+  );
+}
 

@@ -9,17 +9,19 @@ export default function AuthLayout({children}) {
 
     useEffect(() => {
         if(Cookies.get('token')) {
-            setIsAuth(true);   
+            setIsAuth(true);
         } else {
             router.push('/auth/login');
         }
     }, [])
 
     if(!isAuth) {
-        return <div>Loading</div>;
+        return <div className="flex items-center h-screen w-full">
+            <span className="loading loading-ring loading-lg"></span>
+        </div>;
     }
 
     return <>
         {children}
     </>
-} 
+}
