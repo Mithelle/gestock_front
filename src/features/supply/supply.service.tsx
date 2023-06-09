@@ -33,7 +33,7 @@ export const useGetAllSupply =  () => {
     })
 }
 
-export const useGetAllProductBySupply =  (id) => {
+/*export const useGetAllProductBySupply =  (id) => {
     return useQuery({
         queryKey: ['supply', id, 'product'],
         queryFn: () => axiosInstance.get('/api/supply/' + id +'/product')
@@ -45,5 +45,5 @@ export const useGetAllUserBySupply =  (id) => {
         queryKey: ['supply', id, 'user'],
         queryFn: () => axiosInstance.get('/api/supply/' + id +'/user')
     })
-}
+}*/
 

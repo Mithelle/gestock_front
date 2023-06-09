@@ -33,6 +33,7 @@ export const useGetAllCommand =  () => {
     })
 }
 
+
 /*export const useGetAllStoreByShop =  (id) => {
     return useQuery({
         queryKey: ['shop', id, 'depot'],

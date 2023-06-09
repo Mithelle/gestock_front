@@ -47,11 +47,9 @@ return(
      </div>
 
     <Table dataSource={pricelist?.data.data}>
+    <Table.Column title='Produit' dataIndex={"name"} key={"id"} />
     <Table.Column title='Conditionnement' dataIndex={"package"} key={"id"} />
     <Table.Column title='Prix Unitaire' dataIndex={"priceU"} key={"id"} />
-    <Table.Column title='Prix Minimal' dataIndex={"priceMin"} key={"id"} />
-    <Table.Column title='Prix Maximal' dataIndex={"priceMax"} key={"id"} />
-    <Table.Column title='Réduction' dataIndex={"reduction"} key={"id"} />
     <Table.Column title='Action'  
                     render={(value, record: any) =>{
                         return <>

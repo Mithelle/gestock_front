@@ -1,12 +1,12 @@
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import DashboardLayout from "@/component/Layout";
 import { addSupply } from "@/features/supply/supply.service";
 import { useGetAllSupplier } from "@/features/supplier/supplier.service";
 import { useGetAllProduct } from "@/features/product/product.service";
-import {ChangeEvent, ChangeEventHandler, useEffect, useState} from "react";
-import { useGetAllPackageByProduct, useGetMultiplePackageByProduct } from "@/features/package/packaging.service";
+import { useState} from "react";
+import { useGetAllPackageByProduct } from "@/features/package/packaging.service";
 import Link from "next/link";
 import {TrashIcon} from "@heroicons/react/24/outline";
 
@@ -17,9 +17,9 @@ export default function AddSupplyPage() {
     const [packageId, setPackageId] = useState('');
     const [productId, setProductId] = useState();
     const [openModal, setOpenModal] = useState(false);
-    // const { data: supplierlist } = useGetAllSupplier();
-    // const { data: productlist } = useGetAllProduct();
-    // const packagelist =  useGetAllPackageByProduct(productId);
+    const { data: supplierlist } = useGetAllSupplier();
+    const { data: productlist } = useGetAllProduct();
+    const { data: packagelist} =  useGetAllPackageByProduct(productId);
 
     const [index, setIndex] = useState('');
     const [conditions, setConditions] = useState<Record<string,any>[]>([]);
@@ -53,8 +53,10 @@ export default function AddSupplyPage() {
         setOpenModal(true);
     }
 
-    function onClose(){
-        setOpenModal(false);
+    function onClose(e){
+        e.preventDefault();
+        window.my_modal_1.close()
+        //setProductId('');
     }
 
     function append(){
@@ -64,6 +66,8 @@ export default function AddSupplyPage() {
           quantity: getValues('quantity')
         };
         setConditions((prev) => [...prev, payload]);
+        window.my_modal_1.close()
+        
     }
 
     function remove(index: number){
@@ -78,10 +82,12 @@ export default function AddSupplyPage() {
     function handlePackageChange(e: any){
         setPackageId(e.target.value);
     }
+    console.log({conditions});
+    console.log(packagelist);
 
     return (
 
-        <DashboardLayout>
+        <DashboardLayout title="">
             <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div className="px-6 py-4">
 
@@ -94,39 +100,34 @@ export default function AddSupplyPage() {
             <div>
             <select {...register("supplier_id")} name="supplier_id" id="supplier_id" className="block px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                 <option value="">Choisissez un fournisseur</option>
-                {/* { supplierlist !== undefined && supplierlist.data.data.map( supplier => <option key={supplier.id}  value={supplier.id}>{supplier.name}</option>) } */}
+                { supplierlist !== undefined && supplierlist.data.data.map( supplier => <option key={supplier.id}  value={supplier.id}>{supplier.name}</option>) } 
             </select>
-            <div className="flex mt-2">
-                <button className="px-6 py-2 ml-auto text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">
-                      <Link href="/suppliers/add-supplier">Ajouter un fournisseur</Link>
-                </button>
-                </div>
+                      <Link href="/suppliers/add-supplier">Nouveau fournisseur ?</Link>
             </div>
 
             <div className="items-center justify-between block mt-6">
             <button type='button' className="btn" onClick={()=>window.my_modal_1.showModal()}>Ajouter</button>
             </div>
-
+                
             <dialog id="my_modal_1" className="modal">
             <div className="modal-box space-y-4">
-
-                <h3 className="text-lg font-bold">Ajouter un ...</h3>
-                <select className="w-full max-w-md select select-bordered">
+                <h3 className="text-lg font-bold">Ajouter un produit</h3>
+                <select onChange={handleProductChange} className="w-full max-w-md select select-bordered">
                       <option disabled selected>Sélectionnez un produit</option>
-                        {/* { productlist !== undefined && productlist.data.data.map( product => <option key={product.id} value={product.id}>{product.name}</option>) } */}
+                         { productlist !== undefined && productlist.data.data.map( product => <option key={product.id} value={product.id}>{product.name}</option>) } 
                 </select>
-                <select className="w-full max-w-md select select-bordered">
+                <select onChange={handlePackageChange} className="w-full max-w-md select select-bordered">
                       <option disabled selected>Sélectionnez un conditionnement</option>
-                        {/* { productlist !== undefined && productlist.data.data.map( product => <option key={product.id} value={product.id}>{product.name}</option>) } */}
+                         { packagelist !== undefined && packagelist.data.data.map( packages => <option key={packages.id} value={packages.id}>{packages.package}</option>) } 
                 </select>
-                <input {...register('quantity')} type="number" placeholder="Quanité d'approvisionnement" aria-label="qte" className="w-full max-w-md input input-bordered" />
+                <input {...register('quantity')} type="number" min={0} placeholder="Quanité d'approvisionnement" aria-label="qte" className="w-full max-w-md input input-bordered" />
                 <div className="modal-action">
-                    <button className="btn">Fermer</button>
-                    <button type="button" className="btn btn-info">Ajouter</button>
+                    <button onClick={onClose} className="btn">Fermer</button>
+                    <button onClick={append} type="button" className="btn btn-info">Ajouter</button>
                 </div>
             </div>
             </dialog>
-
+                { conditions.map((condition,index) =>
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}
@@ -142,10 +143,10 @@ export default function AddSupplyPage() {
                     <tbody>
                     {/* row 1 */}
                     <tr>
-                        <th>1</th>
-                        <td>Pétrol3</td>
-                        <td>2</td>
-                        <td>1</td>
+                        <th>{index +1}</th>
+                        <td>{condition.product_id}</td>
+                        <td>{condition.package_id}</td>
+                        <td>{condition.quantity}</td>
                         <td>
                             <button className="btn btn-outline btn-error btn-sm"> <TrashIcon className="w-4 h-4  text-red-700" /> </button>
                         </td>
@@ -153,7 +154,7 @@ export default function AddSupplyPage() {
                     </tbody>
                 </table>
             </div>
-
+            )}
     </form>
     </div>
     </div>

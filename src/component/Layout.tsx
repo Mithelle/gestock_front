@@ -8,19 +8,19 @@ import { BeakerIcon, BellAlertIcon, HomeIcon, HomeModernIcon } from '@heroicons/
 const routesLink = [
   { href: "/admin", name: "Admin", icon: HomeIcon},
   { href: "/shops", name: "Boutiques", icon: HomeIcon},
-  { href: "/stores", name: "Stores", icon: HomeIcon},
+  { href: "/stores", name: "Depots", icon: HomeIcon},
   { href: "/users", name: "Utilisateurs", icon: HomeIcon},
   { href: "/customers", name: "Clients", icon: HomeIcon},
   { href: "/suppliers", name: "Fournisseurs", icon: HomeIcon},
   { href: "/products", name: "Produits", icon: HomeIcon},
-  { href: "/productFamilies", name: "Famille de produit", icon: HomeIcon},
-  { href: "/measures", name: "Unité de mesure", icon: HomeIcon},
-  { href: "/packages", name: "Package", icon: HomeIcon},
-  { href: "/price-structures", name: "Conditionnement", icon: HomeIcon},
+  { href: "/productFamilies", name: "Familles de produits", icon: HomeIcon},
+  { href: "/measures", name: "Unités de mesure", icon: HomeIcon},
+  { href: "/packages", name: "Conditionnements", icon: HomeIcon},
+  { href: "/price-structures", name: "Structures de prix", icon: HomeIcon},
   { href: "/deliveries", name: "Livraison", icon: HomeIcon},
   { href: "/commands", name: "Commandes", icon: HomeIcon},
-  { href: "/supplies", name: "Supplies", icon: HomeIcon},
-  { href: "/inventories", name: "Inventories", icon: HomeIcon},
+  { href: "/supplies", name: "Approvisionnements", icon: HomeIcon},
+  { href: "/inventories", name: "Inventaires", icon: HomeIcon},
   { href: "/invoices", name: "Factures", icon: HomeIcon},
   { href: "/invoices/index2", name: "Factures 2", icon: HomeIcon},
 ];
@@ -32,7 +32,7 @@ export default function DashboardLayout({title = 'Titre de la page', children}: 
   } = theme.useToken();
 
   return (
-    // <AuthLayout>
+    <AuthLayout>
       <main className="flex h-screen">
           <ul className="w-56 flex-grow bg-gray-100 p-3 font-semibold text-gray-800 overflow-y-scroll">
               <li className="flex h-[80px] items-center pl-3">
@@ -66,7 +66,7 @@ export default function DashboardLayout({title = 'Titre de la page', children}: 
               </div>
           </div>
       </main>
-     // </AuthLayout>
+     </AuthLayout>
   );
 };
 

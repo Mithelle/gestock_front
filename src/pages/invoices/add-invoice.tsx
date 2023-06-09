@@ -124,11 +124,11 @@ export default function AddInvoicePage() {
                 </svg>
 
                 <div>
-                <select {...register(`supply.${index}.product_id`)}  value={productId}  name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select onChange={handleSelectedProduct} value={productId}  name="product_id" id="product_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez un produit</option>
                     { productlist !== undefined && productlist.data.data.map( product => <option key={product.id} value={product.id}>{product.name}</option>) }
                 </select>
-                <select {...register(`supply.${index}.package_id`)} disabled={!productId}  value={packageId} name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <select onChange={handleSelectedPackage} disabled={!productId}  value={packageId} name="package_id" id="package_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez le conditionnement</option>
                     { packagelist !== undefined && packagelist.data.data.map( packages => <option key={packages.id}  value={packages.id}>{packages.package}</option>) }
                 </select>   
