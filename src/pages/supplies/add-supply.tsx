@@ -60,8 +60,11 @@ export default function AddSupplyPage() {
     }
 
     function append(){
+        const product = productlist?.data.data.filter(p => p.id ==productId)
+
         const payload = {
           product_id: productId,
+          product: product[0],
           package_id: packageId,
           quantity: getValues('quantity')
         };
@@ -82,8 +85,8 @@ export default function AddSupplyPage() {
     function handlePackageChange(e: any){
         setPackageId(e.target.value);
     }
-    console.log({conditions});
-    console.log(packagelist);
+
+    const product = productlist?.data.data.filter(p => p.id ==productId)
 
     return (
 
@@ -144,7 +147,7 @@ export default function AddSupplyPage() {
                     {/* row 1 */}
                     <tr>
                         <th>{index +1}</th>
-                        <td>{condition.product_id}</td>
+                        <td>{product.name}</td>
                         <td>{condition.package_id}</td>
                         <td>{condition.quantity}</td>
                         <td>

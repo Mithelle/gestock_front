@@ -89,7 +89,7 @@ export default function AddInvoicePage() {
 
         <DashboardLayout>
 
-        <div className="w-full  mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div className="px-6 py-4">
         
             <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Créer une facture</p>
