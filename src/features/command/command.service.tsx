@@ -4,32 +4,32 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function addCommand(data:any){
 
-    return axiosInstance.post("/api/newShop", data);
+    return axiosInstance.post("/api/newCommand", data);
  }
 
 export const useUpdateCommand =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.put('/api/alterShop/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterCommand/' + data.id, data)
     })
 }
 
 export const useDeleteCommand =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.delete('/api/delShop/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delCommand/' + id) 
     })
 }
 
 export const useGetOneCommand =  (id: any) => {
     return useQuery({
         queryKey: ['commande', id],
-        queryFn: () => axiosInstance.get('/api/shop/' + id)
+        queryFn: () => axiosInstance.get('/api/command/' + id)
     })
 }
 
 export const useGetAllCommand =  () => {
     return useQuery({
         queryKey: ['command'],
-        queryFn: () => axiosInstance.get('/api/shops')
+        queryFn: () => axiosInstance.get('/api/commands')
     })
 }
 

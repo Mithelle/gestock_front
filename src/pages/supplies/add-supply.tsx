@@ -9,6 +9,7 @@ import { useState} from "react";
 import { useGetAllPackageByProduct } from "@/features/package/packaging.service";
 import Link from "next/link";
 import {TrashIcon} from "@heroicons/react/24/outline";
+import { useGetAllStore } from "@/features/store/store.service";
 
 export default function AddSupplyPage() {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function AddSupplyPage() {
     const [productId, setProductId] = useState();
     const [openModal, setOpenModal] = useState(false);
     const { data: supplierlist } = useGetAllSupplier();
+    const { data: storelist } = useGetAllStore();
     const { data: productlist } = useGetAllProduct();
     const { data: packagelist} =  useGetAllPackageByProduct(productId);
 
@@ -30,11 +32,10 @@ export default function AddSupplyPage() {
             return productId;
         })
     }
-       // console.log(multiplePackage);
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await addSupply (data)
+         const response =  await addSupply ({...data, packages: conditions})
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId
@@ -61,16 +62,18 @@ export default function AddSupplyPage() {
 
     function append(){
         const product = productlist?.data.data.filter(p => p.id ==productId)
+        const packages = packagelist?.data.data.filter(p => p.id ==packageId)
 
         const payload = {
           product_id: productId,
           product: product[0],
           package_id: packageId,
+          packages: packages[0],
           quantity: getValues('quantity')
         };
         setConditions((prev) => [...prev, payload]);
         window.my_modal_1.close()
-        
+         
     }
 
     function remove(index: number){
@@ -86,7 +89,6 @@ export default function AddSupplyPage() {
         setPackageId(e.target.value);
     }
 
-    const product = productlist?.data.data.filter(p => p.id ==productId)
 
     return (
 
@@ -98,7 +100,7 @@ export default function AddSupplyPage() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full mt-4">
-                <input {...register("supplyDate")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="date" placeholder="Date de l'approvisionnement" aria-label="date" />
+                <input {...register("date")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="date" placeholder="Date de l'approvisionnement" aria-label="date" />
             </div>
             <div>
             <select {...register("supplier_id")} name="supplier_id" id="supplier_id" className="block px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
@@ -106,6 +108,12 @@ export default function AddSupplyPage() {
                 { supplierlist !== undefined && supplierlist.data.data.map( supplier => <option key={supplier.id}  value={supplier.id}>{supplier.name}</option>) } 
             </select>
                       <Link href="/suppliers/add-supplier">Nouveau fournisseur ?</Link>
+            </div>
+            <div>
+            <select {...register("depot_id")} name="depot_id" id="depot_id" className="block px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                <option value="">Choisissez un depot</option>
+                { storelist !== undefined && storelist.data.data.map( store => <option key={store.id}  value={store.id}>{store.name}</option>) } 
+            </select>
             </div>
 
             <div className="items-center justify-between block mt-6">
@@ -147,8 +155,8 @@ export default function AddSupplyPage() {
                     {/* row 1 */}
                     <tr>
                         <th>{index +1}</th>
-                        <td>{product.name}</td>
-                        <td>{condition.package_id}</td>
+                        <td>{condition.product.name}</td>
+                        <td>{condition.packages.package}</td>
                         <td>{condition.quantity}</td>
                         <td>
                             <button className="btn btn-outline btn-error btn-sm"> <TrashIcon className="w-4 h-4  text-red-700" /> </button>

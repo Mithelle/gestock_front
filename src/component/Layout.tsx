@@ -23,6 +23,7 @@ const routesLink = [
   { href: "/inventories", name: "Inventaires", icon: HomeIcon},
   { href: "/invoices", name: "Factures", icon: HomeIcon},
   { href: "/invoices/index2", name: "Factures 2", icon: HomeIcon},
+  { href: "/orders/order-form", name: " Bon de commande ", icon: HomeIcon},
 ];
 
 export default function DashboardLayout({title = 'Titre de la page', children}: PropsWithChildren<{title?: string}>){

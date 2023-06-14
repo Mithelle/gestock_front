@@ -58,9 +58,13 @@ export default function AddInvoicePage() {
     }
 
     function append(){
+        const product = productlist?.data.data.filter(p => p.id ==productId)
+        const packages = packagelist?.data.data.filter(pa => pa.id ==packageId)
         const payload = {
           product_id: productId,
+          product: product[0],
           package_id: packageId,
+          packages: packages[0],
           quantity: getValues('quantity'),
           pu_ht: getValues('pu_ht'),
           pu_ttc: getValues('pu_ttc'),
@@ -89,7 +93,7 @@ export default function AddInvoicePage() {
 
         <DashboardLayout>
 
-        <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="w-full mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div className="px-6 py-4">
         
             <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Créer une facture</p>
@@ -99,11 +103,10 @@ export default function AddInvoicePage() {
                     <input {...register("invoiceDate")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="date" placeholder="Date de la facture" aria-label="date" />
                 </div>
                 <div>
-                <select {...register("supplier_id")} name="supplier_id" id="supplier_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
-                    <option value="">Choisissez un fournisseur</option>
-                    { supplierlist !== undefined && supplierlist.data.data.map( supplier => <option key={supplier.id}  value={supplier.id}>{supplier.name}</option>) }
+                <select {...register("user_id")} name="user_id" id="user_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
+                    <option value="">Choisissez un utilisateur</option>
+                    { userlist !== undefined && userlist.data.data.map( user => <option key={user.id}  value={user.id}>{user.name}</option>) }
                 </select> 
-                          <Link href="/suppliers/add-supplier" className="text-gray-900">Nouveau fournisseur?</Link>
                 </div>
                 <div>
                 <select {...register("customer_id")} name="customer_id" id="customer_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
@@ -128,12 +131,6 @@ export default function AddInvoicePage() {
                 <select {...register("depot_id")} name="depot_id" id="depot_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
                     <option value="">Choisissez un depot</option>
                     { storelist !== undefined && storelist.data.data.map( store => <option key={store.id}  value={store.id}>{store.name}</option>) }
-                </select> 
-                </div>
-                <div>
-                <select {...register("user_id")} name="user_id" id="user_id" className="block  px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">
-                    <option value="">Choisissez un vendeur</option>
-                    { userlist !== undefined && userlist.data.data.map( user => <option key={user.id}  value={user.id}>{user.name}</option>) }
                 </select> 
                 </div>
 
@@ -164,7 +161,7 @@ export default function AddInvoicePage() {
                 </div>
 
                 <div className="w-full mt-4">
-                    <input {...register('reduction') } type="number" min={0} className="w-full max-w-md input input-bordered" placeholder="Montant HT" aria-label="prixht" />
+                    <input {...register('reduction') } type="number" min={0} className="w-full max-w-md input input-bordered" placeholder="reduction" aria-label="reduc" />
                 </div>
 
                 <div className="modal-action">
@@ -194,13 +191,13 @@ export default function AddInvoicePage() {
                     {/* row 1 */}
                     <tr>
                         <th>{index +1}</th>
-                        <td>{condition.product_id}</td>
-                        <td>{condition.package_id}</td>
+                        <td>{condition.product.product_id}</td>
+                        <td>{condition.packages.package_id}</td>
                         <td>{condition.quantity}</td>
                         <td>{condition.pu_ht}</td>
                         <td>{condition.pu_ttc}</td>
                         <td>{condition.amount_ht}</td>
-                        <td>{condition.réduction}</td>
+                        <td>{condition.reduction}</td>
                         <td>
                             <button className="btn btn-outline btn-error btn-sm"> <TrashIcon className="w-4 h-4  text-red-700" /> </button>
                         </td>
