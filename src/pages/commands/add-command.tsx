@@ -27,11 +27,10 @@ export default function AddSupplyPage() {
     const [conditions, setConditions] = useState<Record<string,any>[]>([]);
 
     
-       // console.log(multiplePackage);
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await addCommand (data)
+         const response =  await addCommand ({data, packages: conditions})
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId

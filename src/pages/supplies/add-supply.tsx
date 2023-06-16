@@ -23,15 +23,15 @@ export default function AddSupplyPage() {
     const { data: productlist } = useGetAllProduct();
     const { data: packagelist} =  useGetAllPackageByProduct(productId);
 
-    const [index, setIndex] = useState('');
+    //const [index, setIndex] = useState('');
     const [conditions, setConditions] = useState<Record<string,any>[]>([]);
 
-    function remapProductIds(arr: any[]){
+    /*function remapProductIds(arr: any[]){
        return arr.map((_,index)=>{
             const productId = watch(`supply.${index}.product_id`)
             return productId;
         })
-    }
+    }*/
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
@@ -107,7 +107,7 @@ export default function AddSupplyPage() {
                 <option value="">Choisissez un fournisseur</option>
                 { supplierlist !== undefined && supplierlist.data.data.map( supplier => <option key={supplier.id}  value={supplier.id}>{supplier.name}</option>) } 
             </select>
-                      <Link href="/suppliers/add-supplier">Nouveau fournisseur ?</Link>
+                <Link href="/suppliers/add-supplier">Nouveau fournisseur ?</Link>
             </div>
             <div>
             <select {...register("depot_id")} name="depot_id" id="depot_id" className="block px-4 py-2 mt-2 text-gray-500 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600">

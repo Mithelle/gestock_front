@@ -2,7 +2,6 @@ import DashboardLayout from "@/component/Layout";
 import Link from "next/link";
 import {  useRouter } from "next/router";
 import { Button, Table } from "antd";
-import { useDeleteSupply, useGetAllSupply } from "@/features/supply/supply.service";
 import { useDeleteCommand, useGetAllCommand } from "@/features/command/command.service";
 
 export default function CommandlistPage(){
@@ -32,8 +31,8 @@ return(
      </div>
 
     <Table dataSource={commandlist?.data.data}>
-    <Table.Column title="Date de la commande" dataIndex={"commDate"} key={"id"} />
-    <Table.Column title='Fournisseur' dataIndex={"supply_id"} key={"id"} />
+    <Table.Column title="Date de la commande" dataIndex={"date"} key={"id"} />
+    <Table.Column title='Fournisseur' dataIndex={"name"} key={"id"} />
     <Table.Column title='Conditionnement' dataIndex={"package"} key={"id"} />
     <Table.Column title='Quantité' dataIndex={"quantity"} key={"id"} />
     <Table.Column title='Action'  

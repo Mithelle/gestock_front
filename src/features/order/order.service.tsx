@@ -2,48 +2,35 @@ import axiosInstance from "@/utils/axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 
-export function CompShop(data:any){
+export function addOrder(data:any){
 
-    return axiosInstance.post("/api/newShop", data);
+    return axiosInstance.post("/api/newOrder", data);
  }
 
-export const useUpdateShop =  () => {
+export const useUpdateOrder =  () => {
     return useMutation({
-        mutationFn: (data) => axiosInstance.put('/api/alterShop/' + data.id, data)
+        mutationFn: (data) => axiosInstance.put('/api/alterOrder/' + data.id, data)
     })
 }
 
-export const useDeleteShop =  () => {
+export const useDeleteOrder =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.delete('/api/delShop/' + id) 
+        mutationFn: (id) => axiosInstance.delete('/api/delOrder/' + id) 
     })
 }
 
-export const useGetOneShop =  (id: any) => {
+export const useGetOneOrder =  (id: any) => {
     return useQuery({
-        queryKey: ['shop', id],
-        queryFn: () => axiosInstance.get('/api/shop/' + id)
+        queryKey: ['order', id],
+        queryFn: () => axiosInstance.get('/api/order/' + id)
     })
 }
 
-export const useGetAllShop =  () => {
+export const useGetAllOrder =  () => {
     return useQuery({
-        queryKey: ['shop'],
-        queryFn: () => axiosInstance.get('/api/shops')
+        queryKey: ['order'],
+        queryFn: () => axiosInstance.get('/api/orders')
     })
 }
 
-export const useGetAllStoreByShop =  (id) => {
-    return useQuery({
-        queryKey: ['shop', id, 'depot'],
-        queryFn: () => axiosInstance.get('/api/shop/' + id +'/depot')
-    })
-}
-
-export const useGetAllUserByShop =  (id) => {
-    return useQuery({
-        queryKey: ['shop', id, 'user'],
-        queryFn: () => axiosInstance.get('/api/shop/' + id +'/user')
-    })
-}
 

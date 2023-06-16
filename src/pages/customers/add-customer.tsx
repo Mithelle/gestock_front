@@ -32,10 +32,10 @@ export default function AddCustomerPage() {
         }
     } 
 
-    function handleValidate(event){
+    /*function handleValidate(event){
     const isValid = isValidPhoneNumber(event.target.value); 
         console.log({ isValid })
-    }
+    }*/
     return (
         <DashboardLayout>
 
@@ -52,8 +52,8 @@ export default function AddCustomerPage() {
                     <input {...register("email")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="email" placeholder="Email" aria-label="email" />
                 </div>
                 <div className="w-full mt-4">
-                    <Controller control={control} rules={{validate: (isValid) => handleValidate(isValid)}}
-                    />
+                   {/*<Controller control={control} rules={{validate: (isValid) => handleValidate(isValid)}}
+                    />*/}
                     <PhoneInput {...register("tel")}   value={phone} onChange={setPhone} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="tel" placeholder="Téléphone" aria-label="phone" />
                 </div>
                 <div className="block items-center justify-between mt-6">

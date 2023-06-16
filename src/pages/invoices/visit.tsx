@@ -27,14 +27,14 @@ return(
                 <div className="flex justify-between p-4">
                     <div>
                     <img className="object-cover h-12" src="" alt="Logo de l'entreprise"/>
-                        <h1 className="text-3xl italic font-extrabold tracking-widest text-orange-700">Nom de l'entreprise</h1>
+                        <h1 className="text-3xl italic font-extrabold tracking-widest text-orange-500">Nom de l'entreprise</h1>
                         <p className="text-base">Description de l'entreprise</p>
                     </div>
                     {/*informations*/}
                     <div className="p-2">
                         <ul className="flex">
                             <li className="flex flex-col items-center p-2 border-l-2 border-orange-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-orange-700" fill="none"
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-orange-500" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -48,7 +48,7 @@ return(
                             </li>
                             {/*adresse*/}
                             <li className="flex flex-col p-2 border-l-2 border-orange-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-orange-700" fill="none"
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-orange-500" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -62,22 +62,22 @@ return(
                         </ul>
                     </div>
                 </div>
-                <div className="w-full h-0.5 bg-orange-900"></div>
+                <div className="w-full h-0.5 bg-orange-700"></div>
                 <div className="flex justify-between p-4">
 
                 <div className="bloc space-y-4">
                     <div>
-                        <h6 className="font-bold text-orange-700">Date de la facture: <span className="text-sm font-medium text-black"> 12/12/2022</span></h6>
+                        <h6 className="font-bold text-orange-500">Date de la facture: <span className="text-sm font-medium text-black"> 12/12/2022</span></h6>
                     </div>
                     <div className="w-40">
                         <address className="text-sm">
-                            <span className="font-bold text-orange-700">Facture n°: </span>
+                            <span className="font-bold text-orange-500">Facture n°: </span>
                             BA202300012                    
                          </address>
                     </div >
                     <div className="w-40">
                         <address className="text-sm">
-                            <span className="font-bold text-orange-700">Client: </span>
+                            <span className="font-bold text-orange-500">Client: </span>
                             uhedhzvcbqxnhsj
                         </address>
                     </div>
@@ -86,13 +86,13 @@ return(
                 <div className="bloc space-y-4">
                     <div className="w-40">
                         <address className="text-sm">
-                            <span className="font-bold text-orange-700">Vendeur: </span>
+                            <span className="font-bold text-orange-500">Vendeur: </span>
                             odjddjddnnbncncbcb                     
                          </address>
                     </div>
                     <div className="w-40">
                         <address className="text-sm">
-                            <span className="font-bold text-orange-700">Moyen de payement: </span>
+                            <span className="font-bold text-orange-500">Moyen de payement: </span>
                             dnnbncncbc                    
                          </address>
                     </div>
@@ -101,7 +101,7 @@ return(
                 <div className="bloc space-y-4">
                     <div className="w-40">
                         <address className="text-sm">
-                            <span className="font-bold text-orange-700"> Dépôt: </span>
+                            <span className="font-bold text-orange-500"> Dépôt: </span>
                             lzken                    
                          </address>
                     </div>
@@ -249,7 +249,7 @@ return(
                 </div>
                 <div className="flex justify-between p-4">
                     <div>
-                        <h3 className="text-xl text-orange-700">Terms And Condition :</h3>
+                        <h3 className="text-xl text-orange-500">Terms And Condition :</h3>
                         <ul className="text-xs list-disc list-inside">
                             <li>Tous les comptes doivent être payés dans les 7 jours suivant la réception de la facture..</li>
                             <li>A payer par chèque ou carte de crédit ou par paiement direct en ligne.</li>
@@ -257,10 +257,10 @@ return(
                     </div>
                     <div className="p-4">
                         <h3>Signature</h3>
-                        <div className="text-4xl italic text-orange-700">AAA</div>
+                        <div className="text-4xl italic text-orange-500">AAA</div>
                     </div>
                 </div>
-                <div className="w-full h-0.5 bg-orange-900"></div>
+                <div className="w-full h-0.5 bg-orange-700"></div>
 
                 <div className="p-4">
                     <div className="flex items-center justify-center">
