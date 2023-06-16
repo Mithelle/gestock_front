@@ -26,7 +26,7 @@ export default function deliveryFormPage() {
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await CompShop (data)
+         const response =  await CompShop ({data, packages: conditions, product: conditions})
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId
@@ -51,7 +51,10 @@ export default function deliveryFormPage() {
         const payload = {
           product_id: productId,
           package_id: packageId,
-          quantity: getValues('quantity')
+          quantity: getValues('quantity'),
+          quantityV: getValues('quantityV'),
+          quantityL: getValues('quantityL'),
+          quantityR: getValues('quantityR')
         };
         setConditions((prev) => [...prev, payload]);
         window.my_modal_1.close()
@@ -90,14 +93,15 @@ export default function deliveryFormPage() {
                     <input {...register("receiver")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Receveur" aria-label="receiver" />
                 </div>
                 <div className="w-full mt-4">
-            <div className="flex items-center mb-4">
+                <input {...register("status")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="statut" aria-label="status" />   
+            {/* <div className="flex items-center mb-4">
                 <input id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                 <label for="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default radio</label>
             </div>
             <div className="flex items-center">
                 <input checked id="default-radio-2" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                 <label for="default-radio-2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Checked state</label>
-            </div>
+            </div> */}
                 </div>
 
                 <div className="items-center justify-between block mt-6">

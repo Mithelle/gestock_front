@@ -3,16 +3,17 @@ import { useGetAllProduct } from "@/features/product/product.service";
 import { useDeletePackage, useGetAllPackageByProduct } from "@/features/package/packaging.service";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDeleteOrder } from "@/features/order/order.service";
 
-export default function PackagelistPage(){
+export default function OrderViewPage(){
     const [productId, setProductId] = useState('');
         const router = useRouter();
         const { data: packagelist } = useGetAllPackageByProduct(productId);
         const {data: allProduct } = useGetAllProduct();
 
-        const deletePackage = useDeletePackage();
+        const deleteOrder = useDeleteOrder();
         function onDelete(id: string){
-            deletePackage.mutate(id)
+            deleteOrder.mutate(id)
             router.reload();
         }
         function onSelectProduct(value: string){
@@ -63,9 +64,9 @@ return(
        </div>
        <div>
         <p className="text-sm font-normal text-slate-700">
-         Bon de commande n:
+         Statut:
         </p>
-        <p>BC2023000012</p>
+        <p>Livre</p>
         </div>
       </div>
      </div>

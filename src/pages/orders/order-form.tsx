@@ -23,7 +23,7 @@ export default function oderFormPage() {
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await addOrder (data)
+         const response =  await addOrder ({data, packages: conditions, product: conditions})
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId

@@ -30,7 +30,7 @@ export default function AddSupplyPage() {
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await addCommand ({data, packages: conditions})
+         const response =  await addCommand ({data, packages: conditions, product: conditions})
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId

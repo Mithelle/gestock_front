@@ -36,7 +36,7 @@ export default function AddInvoicePage() {
    async function onSubmit(data:any){
     const toastId = toast.loading('En cours...');
         try{
-         const response =  await addInvoice(data)
+         const response =  await addInvoice({data, packages: conditions, product: conditions})
           console.log(response.data)
             toast.success('Terminé!', {
                 id:toastId
