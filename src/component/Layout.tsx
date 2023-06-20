@@ -62,7 +62,7 @@ export default function DashboardLayout({title = 'Titre de la page', children}: 
                   </div>
               </header>
 
-              <div className="h-[calc(100%-80px)] p-3">
+              <div className="h-[calc(100%-80px)] p-3 overflow-y-scroll">
                   {children}
               </div>
           </div>

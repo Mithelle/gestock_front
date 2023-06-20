@@ -1,4 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import axiosInstance from "@/utils/axios";
+
 
 export const BASE_URL = 'http://localhost:8000';
 
@@ -6,8 +9,11 @@ export function createAccount(data:any){
    return axios.post( BASE_URL + "/api/register", data);
 }
 
-export function me(){
-   return axios.get( BASE_URL + "/api/me");
+export const useMe =  () => {
+   return useQuery({
+       queryKey: ['me'],
+       queryFn: () => axiosInstance.get( BASE_URL + "/api/user")
+   })
 }
 
 export async function loginUser(data:any){

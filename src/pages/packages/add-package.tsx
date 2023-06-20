@@ -52,7 +52,7 @@ export default function addPackagePage() {
                </div>
                 <div className="w-full mt-4">
                     <label htmlFor="condition" className="text-gray-700 dark:text-gray-200">Conditionnement</label>
-                    <input {...register("package")} min={0} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="number"  />
+                    <input {...register("package")} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text"  />
                 </div>
                 <div className="block items-center justify-between mt-6">
                 <button className="block ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">

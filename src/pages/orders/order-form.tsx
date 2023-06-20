@@ -38,7 +38,7 @@ export default function oderFormPage() {
         }
     } 
 
-    function onClose(e){
+    function onClose(e: any){
         e.preventDefault();
         window.my_modal_1.close()
         //setProductId('');
@@ -76,13 +76,11 @@ export default function oderFormPage() {
 
     
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Créer un bon comande">
 
-        <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="max-w-2xl mx-auto">
         <div className="px-6 py-4">
         
-            <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Créer un bon de commande</p>
-    
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full mt-4">
                     <input {...register("oderNum")} className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type="text" placeholder="Numéro de la commande" aria-label="delivNum" />

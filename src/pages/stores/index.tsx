@@ -10,6 +10,7 @@ export default function StorelistPage(){
         const [shopId, setShopId] = useState('');
         const router = useRouter();
         const { data: storelist } = useGetAllStoreByShop(shopId);
+        const { data: allStore } = useGetAllStore();
 
         const {data: allShop} = useGetAllShop();
         
@@ -22,7 +23,7 @@ export default function StorelistPage(){
             setShopId(value)
         }
         
-        
+        console.log(allStore);
 return(
  <DashboardLayout>
 
@@ -42,7 +43,7 @@ return(
      </button>
      </div>
 
-<Table dataSource={storelist?.data.data}>
+<Table dataSource={allStore?.data.data}>
     <Table.Column title='Nom' dataIndex={"name"} key={"id"} />
     <Table.Column title='Adresse' dataIndex={"adresse"} key={"id"} />
     <Table.Column title='Action'  

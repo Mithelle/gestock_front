@@ -18,7 +18,7 @@ export default function CustomerlistPage(){
     if(isLoading) {
         return <div className="text-center">Loading...</div> 
     }
-    console.log(customerlist)
+    console.log(customerlist);
     
 return(
     <DashboardLayout>

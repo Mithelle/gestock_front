@@ -76,9 +76,10 @@ export default function UserCreatingPage() {
                     <option value="">Inventorist(e)</option>
                     </select>            
         </div>*/}
-
-                <div className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                    <label htmlFor="role">Magasinier(ère)</label>
+                <div className="mt-4">
+                <p>Rôles</p>
+                <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
+                    <label className="ml-2" htmlFor="role">Magasinier(ère)</label>
                 <input {...register("storekeeper")}
                     className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     type="checkbox"
@@ -86,29 +87,30 @@ export default function UserCreatingPage() {
                     value="storekeeper"
                     />
                 </div>
-                <div className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                <label htmlFor="role">Vendeur(se)</label>
+                <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
+                <label className="ml-2" htmlFor="role">Vendeur(se)</label>
                 <input {...register("seller")}
                     className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     type="checkbox"
                     id="seller"
                     value="seller"/>
                 </div>
-                <div className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                <label htmlFor="role">Caissier(ère)</label>
+                <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
+                <label className="ml-2" htmlFor="role">Caissier(ère)</label>
                 <input {...register("cashier")}
                     className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     type="checkbox"
                     id="cashier"
                     value="cashier"/>
                 </div>
-                <div className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                <label htmlFor="role">Inventoriste</label>
+                <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
+                <label className="ml-2" htmlFor="role">Inventoriste</label>
                 <input {...register("inventorist")}
                     className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     type="checkbox"
                     id="inventorist"
                     value="inventorist"/>
+                </div>
                 </div>
 
         <div className="block items-center justify-between mt-6">

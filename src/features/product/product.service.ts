@@ -41,7 +41,7 @@ export const useGetAllProduct =  () => {
 }*/
 export const useGetAllPriceByProduct =  (id) => {
     return useQuery({
-        queryKey: ['product', id, 'price'],
-        queryFn: () => axiosInstance.get('/api/product/' + id +'/price')
+        queryKey: ['product', id, 'structure'],
+        queryFn: () => axiosInstance.get('/api/product/' + id +'/structure')
     })
 }

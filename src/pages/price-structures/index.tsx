@@ -21,7 +21,7 @@ export default function PricelistPage(){
     if(isLoading) {
         return <div className="text-center">Loading...</div> 
     }
-   // console.log(pricelist)
+    console.log(pricelist)
 
    function onSelectProduct(value: string){
     setProductId(value);

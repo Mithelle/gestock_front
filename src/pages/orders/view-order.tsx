@@ -23,6 +23,24 @@ return(
     <DashboardLayout>
 
 <section >
+<div className="flex items-top justify-center bg-gray-100">
+            <div className="w-7/12 mt-4 my-6 p]text-left bg-white shadow-lg">
+                <div className="flex justify-between px-8 py-6">
+                    <div className="flex items-center">
+                        sale invoice
+                    </div>
+                    <div className="flex items-end justify-end space-x-3">
+                        <button className="px-4 py-2 text-sm text-green-600 bg-green-100">Imprimer</button>
+                        <button className="px-4 py-2 text-sm text-blue-600 bg-blue-100">Enregistrer</button>
+                        <button className="px-4 py-2 text-sm text-red-600 bg-red-100">Annuler</button>
+                    </div>
+                </div>
+                <div className="w-full h-0.5 bg-gray-800"></div>
+
+            </div>
+        </div>
+
+
  <div className="max-w-5xl mx-auto py-16 bg-white">
   <article className="overflow-hidden">
    <div className="bg-[white] rounded-b-md">
@@ -200,22 +218,6 @@ return(
    </div>
   </article>
  </div>
-<div className="flex items-top justify-center bg-gray-100">
-            <div className="w-7/12 mt-4 text-left bg-white shadow-lg">
-                <div className="flex justify-between px-8 py-6">
-                    <div className="flex items-center">
-                        sale invoice
-                    </div>
-                    <div className="flex items-end justify-end space-x-3">
-                        <button className="px-4 py-2 text-sm text-green-600 bg-green-100">Imprimer</button>
-                        <button className="px-4 py-2 text-sm text-blue-600 bg-blue-100">Enregistrer</button>
-                        <button className="px-4 py-2 text-sm text-red-600 bg-red-100">Annuler</button>
-                    </div>
-                </div>
-                <div className="w-full h-0.5 bg-gray-800"></div>
-
-            </div>
-        </div>
 
 </section>
 
