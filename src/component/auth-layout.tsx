@@ -9,14 +9,14 @@ export default function AuthLayout({children}) {
     const { data, isLoading, isSuccess, isError } = useMe();
     const router = useRouter();
 
-    useEffect(() => {
-        if(Cookies.get('token') && isSuccess) {
-            setIsAuth(true);
-        } 
-        if(isError) {
-            router.push('/auth/login');
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if(Cookies.get('token') && isSuccess) {
+    //         setIsAuth(true);
+    //     }
+    //     if(isError) {
+    //         router.push('/auth/login');
+    //     }
+    // }, [data])
 
     if(!isAuth && isLoading) {
         return <div className="flex items-center h-screen w-full">
@@ -25,8 +25,8 @@ export default function AuthLayout({children}) {
     }
 
     return <>
-    <ShouldCreateCompany user={data?.data}>
+    {/*<ShouldCreateCompany user={data?.data}>*/}
         {children}
-    </ShouldCreateCompany>
+    {/*</ShouldCreateCompany>*/}
     </>
 }

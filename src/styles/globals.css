@@ -7,3 +7,8 @@
 html {
     font-family: Lato;
 }
+
+
+.input-bordered {
+    border: 1px solid #C4C4C4;
+}

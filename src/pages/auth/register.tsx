@@ -28,29 +28,29 @@ export default function RegisterPage() {
     return (
         <main className="w-full h-screen flex items-center justify-center">
 
-        <section className="  max-w-4xl ">
+        <section className=" w-full  max-w-lg ">
     <h2 className="text-lg font-semibold text-center text-gray-700 capitalize dark:text-white">Inscription</h2>
 
     <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1">
+        <div className="space-y-6">
             <div>
                 <label className="text-gray-700 dark:text-gray-200" htmlFor="name">Nom</label>
-                <input {...register("name")} id="name" type="text" className="input input-bordered w-full max-w-md" />
+                <input {...register("name")} id="name" type="text" className="input input-bordered w-full max-w-xl" />
             </div>
 
             <div>
                 <label className="text-gray-700 dark:text-gray-200" htmlFor="email">Email </label>
-                <input {...register("email")} id="email" type="email" className="input input-bordered w-full max-w-md" />
+                <input {...register("email")} id="email" type="email" className="input input-bordered w-full max-w-xl" />
             </div>
 
             <div>
                 <label className="text-gray-700 dark:text-gray-200" htmlFor="password">Mot de passe</label>
-                <input {...register("password")} id="password" type="password" className="input input-bordered w-full max-w-md" />
+                <input {...register("password")} id="password" type="password" className="input input-bordered w-full max-w-xl" />
             </div>
 
             <div>
                 <label className="text-gray-700 dark:text-gray-200" htmlFor="password_confirmation">Confirmer mot de passe</label>
-                <input {...register("password_confirmation")} id="password_confirmation" type="password" className="input input-bordered w-full max-w-md" />
+                <input {...register("password_confirmation")} id="password_confirmation" type="password" className="input input-bordered w-full max-w-xl" />
             </div>
         </div>
 
