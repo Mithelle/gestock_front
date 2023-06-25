@@ -1,55 +1,14 @@
 import React, { useState } from 'react';
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import DashboardLayout from '@/component/Layout';
 import Link from 'next/link';
 
-const { Header, Content, Footer, Sider } = Layout;
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
-];
 
 export default function AdminPage(){
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   return (
     <DashboardLayout>
-      <div className="w-full px-6 py-6 mx-auto bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-100 ">
+      <div className="w-full px-6 py-6 mx-auto">
         {/* <!-- row 1 --> */}
         <div className="flex flex-wrap -mx-3">
           {/* <!-- card1 --> */}
@@ -173,9 +132,9 @@ export default function AdminPage(){
           </div>
 
           <div className="w-full max-w-full px-3 lg:w-5/12 lg:flex-none">
-            <div slider className="relative w-full h-full overflow-hidden rounded-2xl">
+            <div className="relative w-full h-full overflow-hidden rounded-2xl">
               {/* <!-- slide 1 --> */}
-              <div slide className="absolute w-full h-full transition-all duration-500">
+              <div className="absolute w-full h-full transition-all duration-500">
                 <img className="object-cover h-full" src="./assets/img/carousel-1.jpg" alt="carousel image" />
                 <div className="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
                   <div className="inline-block w-8 h-8 mb-4 text-center text-black bg-white bg-center rounded-lg fill-current stroke-none">
@@ -187,7 +146,7 @@ export default function AdminPage(){
               </div>
 
               {/* <!-- slide 2 --> */}
-              <div slide className="absolute w-full h-full transition-all duration-500">
+              <div className="absolute w-full h-full transition-all duration-500">
                 <img className="object-cover h-full" src="./assets/img/carousel-2.jpg" alt="carousel image" />
                 <div className="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
                   <div className="inline-block w-8 h-8 mb-4 text-center text-black bg-white bg-center rounded-lg fill-current stroke-none">
@@ -199,7 +158,7 @@ export default function AdminPage(){
               </div>
 
               {/* <!-- slide 3 --> */}
-              <div slide className="absolute w-full h-full transition-all duration-500">
+              <div className="absolute w-full h-full transition-all duration-500">
                 <img className="object-cover h-full" src="./assets/img/carousel-3.jpg" alt="carousel image" />
                 <div className="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
                   <div className="inline-block w-8 h-8 mb-4 text-center text-black bg-white bg-center rounded-lg fill-current stroke-none">
@@ -211,8 +170,8 @@ export default function AdminPage(){
               </div>
 
               {/* <!-- Control buttons --> */}
-              <button btn-next className="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-right active:scale-110 top-6 right-4"></button>
-              <button btn-prev className="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-left active:scale-110 top-6 right-16"></button>
+              <button className="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-right active:scale-110 top-6 right-4"></button>
+              <button className="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-left active:scale-110 top-6 right-16"></button>
             </div>
           </div>
         </div>

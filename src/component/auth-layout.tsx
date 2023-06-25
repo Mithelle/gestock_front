@@ -1,12 +1,12 @@
-import { useMe } from "@/features/auth"
+import {useMe} from "@/features/auth"
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react"
+import {useRouter} from "next/router";
+import {PropsWithChildren, useEffect, useState} from "react"
 import ShouldCreateCompany from "./gates/should-create-company";
 
-export default function AuthLayout({children}) {
+export default function AuthLayout({children}: PropsWithChildren) {
     const [isAuth, setIsAuth] = useState(false);
-    const { data, isLoading, isSuccess, isError } = useMe();
+    const {data, isLoading, isSuccess, isError} = useMe();
     const router = useRouter();
 
     // useEffect(() => {
@@ -18,15 +18,15 @@ export default function AuthLayout({children}) {
     //     }
     // }, [data])
 
-    if(!isAuth && isLoading) {
-        return <div className="flex items-center h-screen w-full">
-            <span className="loading loading-ring loading-lg"></span>
-        </div>;
-    }
-
+    // if (!isAuth && isLoading) {
+    //     return <div className="flex items-center justify-center h-screen w-full">
+    //         <span className="loading loading-ring loading-lg"></span>
+    //     </div>;
+    // }
+    //
     return <>
-    {/*<ShouldCreateCompany user={data?.data}>*/}
+        {/*<ShouldCreateCompany user={data?.data}>*/}
         {children}
-    {/*</ShouldCreateCompany>*/}
+        {/*</ShouldCreateCompany>*/}
     </>
 }

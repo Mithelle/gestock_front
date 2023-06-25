@@ -1,6 +1,4 @@
 import React, {PropsWithChildren, useState} from 'react';
-import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import AuthLayout from './auth-layout';
 import Link from 'next/link';
 import { BeakerIcon, BellAlertIcon, HomeIcon, HomeModernIcon } from '@heroicons/react/24/solid'
@@ -28,16 +26,13 @@ const routesLink = [
 
 export default function DashboardLayout({title = 'Titre de la page', children}: PropsWithChildren<{title?: string}>){
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   return (
     <AuthLayout>
       <main className="flex h-screen">
           <ul className="w-56 flex-grow bg-gray-100 p-3 font-semibold text-gray-800 overflow-y-scroll">
               <li className="flex h-[80px] items-center pl-3">
-                  <span className="">GESTOCK</span>
+                  <span>GESTOCK</span>
               </li>
               {routesLink.map((route) => (
                   <li key={route.href}>
@@ -62,7 +57,7 @@ export default function DashboardLayout({title = 'Titre de la page', children}: 
                   </div>
               </header>
 
-              <div className="h-[calc(100%-80px)] p-3 overflow-y-scroll">
+              <div className="h-[calc(100%-80px)] p-3 overflow-y-scroll  bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-100 ">
                   {children}
               </div>
           </div>
