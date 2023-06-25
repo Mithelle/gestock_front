@@ -11,7 +11,7 @@ export default function LoginPage() {
     const router = useRouter();
     const { register, handleSubmit, watch, formState:{ errors } } = useForm();
 
-   async function onSubmit(data:any){
+    async function onSubmit(data:any){
     const toastId = toast.loading('Patientez...');
         try{
          const response =  await loginUser(data)
@@ -35,8 +35,8 @@ export default function LoginPage() {
 
     
     return (
-        <div className="flex items-center justify-center h-screen">
-        <div className="px-12 py-12 max-w-xl w-full mx-auto space-y-3 border shadow-xl rounded-2xl">
+        <div className="w-full max-w-sm mx-auto bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-100 overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="px-6 py-4">
     
             <h3 className="mt-3 text-xl font-medium text-center text-gray-600 dark:text-gray-200 mb-5">Bienvenu</h3>
     
