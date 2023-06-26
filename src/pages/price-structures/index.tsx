@@ -49,13 +49,13 @@ return(
     <Table dataSource={pricelist?.data.data}>
     <Table.Column title='Produit' dataIndex={"name"} key={"id"} />
     <Table.Column title='Conditionnement' dataIndex={"package"} key={"id"} />
-    <Table.Column title='Prix Unitaire' dataIndex={"priceU"} key={"id"} />
+    <Table.Column title='Prix Unitaire' dataIndex={"pu"} key={"id"} />
     <Table.Column title='Action'  
                     render={(value, record: any) =>{
                         return <>
                                <Button type="link" href={"/price-structures/edit/" + record.id } >Modifier</Button>
                                <Button type="link" onClick={ () => onDelete(value)}>Supprimer</Button>
-                             <Button type="link" href={"/price-structures/visit /" + record.id } >Voir</Button>
+                             <Button type="link" href={"/price-structures/visit/" + record.id } >Voir</Button>
                         </>
                        
                     }}

@@ -3,30 +3,32 @@ import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import {PropsWithChildren, useEffect, useState} from "react"
 import ShouldCreateCompany from "./gates/should-create-company";
+import { Loading } from "./loading";
 
 export default function AuthLayout({children}: PropsWithChildren) {
     const [isAuth, setIsAuth] = useState(false);
-    const {data, isLoading, isSuccess, isError} = useMe();
+    const {data, isLoading, isSuccess, isError, error} = useMe();
     const router = useRouter();
 
-    // useEffect(() => {
-    //     if(Cookies.get('token') && isSuccess) {
-    //         setIsAuth(true);
-    //     }
-    //     if(isError) {
-    //         router.push('/auth/login');
-    //     }
-    // }, [data])
+    useEffect(() => {
+        // if(Cookies.get('token') && isSuccess) {
+            // setIsAuth(true);
+        // }
+        if(error) {
+            router.push('/auth/login');
+            console.log(error.response)
+        }
+    }, [data])
 
-    // if (!isAuth && isLoading) {
-    //     return <div className="flex items-center justify-center h-screen w-full">
-    //         <span className="loading loading-ring loading-lg"></span>
-    //     </div>;
-    // }
-    //
+    console.log({  });
+
+    if (!isAuth && isLoading) {
+        return <Loading />;
+     }
+    
     return <>
-        {/*<ShouldCreateCompany user={data?.data}>*/}
+        <ShouldCreateCompany user={data?.data}>
         {children}
-        {/*</ShouldCreateCompany>*/}
+        </ShouldCreateCompany>
     </>
 }

@@ -12,7 +12,9 @@ export function createAccount(data:any){
 export const useMe =  () => {
    return useQuery({
        queryKey: ['me'],
-       queryFn: () => axiosInstance.get( BASE_URL + "/api/user")
+       queryFn: () => axiosInstance.get( BASE_URL + "/api/user"),
+       cacheTime: 0,
+       networkMode: 'online'
    })
 }
 

@@ -7,7 +7,7 @@ export default function AdminPage(){
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title='Dashboard'>
       <div className="w-full px-6 py-6 mx-auto">
         {/* <!-- row 1 --> */}
         <div className="flex flex-wrap -mx-3">

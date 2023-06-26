@@ -31,9 +31,8 @@ export default function UserCreatingPage() {
     }    
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Employés / Créer">
         <section className="  max-w-xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-    <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">Créer un utilisateur</h2>
 
     <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full mt-4">
@@ -79,37 +78,46 @@ export default function UserCreatingPage() {
                 <div className="mt-4">
                 <p>Rôles</p>
                 <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
+                    <label className="ml-2" htmlFor="role">Assitant Administrateur</label>
+                    <input {...register("statut")}
+                        className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        type="checkbox"
+                        id="admin"
+                        value="admin"
+                        />
+                </div>
+                <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
                     <label className="ml-2" htmlFor="role">Magasinier(ère)</label>
-                <input {...register("storekeeper")}
-                    className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    type="checkbox"
-                    id="storekeeper"
-                    value="storekeeper"
-                    />
+                    <input {...register("statut")}
+                        className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        type="checkbox"
+                        id="magasinier"
+                        value="magasinier"
+                        />
                 </div>
                 <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
                 <label className="ml-2" htmlFor="role">Vendeur(se)</label>
-                <input {...register("seller")}
+                <input {...register("statut")}
                     className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     type="checkbox"
-                    id="seller"
-                    value="seller"/>
+                    id="vendeur"
+                    value="vendeur"/>
                 </div>
                 <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
                 <label className="ml-2" htmlFor="role">Caissier(ère)</label>
-                <input {...register("cashier")}
+                <input {...register("statut")}
                     className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     type="checkbox"
-                    id="cashier"
-                    value="cashier"/>
+                    id="caissier"
+                    value="caissier"/>
                 </div>
                 <div className="ml-2 text-sm mt-2 font-medium text-gray-700 dark:text-gray-300">
                 <label className="ml-2" htmlFor="role">Inventoriste</label>
-                <input {...register("inventorist")}
+                <input {...register("statut")}
                     className="relative float-left w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     type="checkbox"
-                    id="inventorist"
-                    value="inventorist"/>
+                    id="inventoriste"
+                    value="inventoriste"/>
                 </div>
                 </div>
 

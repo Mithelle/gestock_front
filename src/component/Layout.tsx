@@ -5,9 +5,9 @@ import { BeakerIcon, BellAlertIcon, HomeIcon, HomeModernIcon } from '@heroicons/
 
 const routesLink = [
   { href: "/admin", name: "Admin", icon: HomeIcon},
-  { href: "/shops", name: "Boutiques", icon: HomeIcon},
-  { href: "/stores", name: "Depots", icon: HomeIcon},
-  { href: "/users", name: "Utilisateurs", icon: HomeIcon},
+  { href: "/shops", name: "Nos annexes", icon: HomeIcon},
+  // { href: "/stores", name: "Depots", icon: HomeIcon},
+  { href: "/users", name: "Employés", icon: HomeIcon},
   { href: "/customers", name: "Clients", icon: HomeIcon},
   { href: "/suppliers", name: "Fournisseurs", icon: HomeIcon},
   { href: "/products", name: "Produits", icon: HomeIcon},

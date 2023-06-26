@@ -8,7 +8,7 @@ export default function ProductFamilyPage() {
     const router = useRouter();
     const { register, handleSubmit, reset, formState:{ errors } } = useForm();
 
-    const { data: oneProductFamily } = useGetOneProductFamily(router.query.proFamId)w
+    const { data: oneProductFamily } = useGetOneProductFamily(router.query.proFamId)
     const updateProductFamily = useUpdateProductFamily()
 
     useEffect(() => {

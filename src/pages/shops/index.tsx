@@ -1,17 +1,20 @@
 import DashboardLayout from "@/component/Layout";
 import { useDeleteShop, useGetAllShop } from "@/features/shop/shop.service";
 import Link from "next/link";
+import axiosInstance from "@/utils/axios";
 import {  useRouter } from "next/router";
-import { Button, Table } from "antd";
+import { ShopLayout } from "@/component/layout/shop-layout";
 
 export default function ShoplistPage(){
     const router = useRouter();
-    const { data: shoplist, isLoading  } = useGetAllShop();
+    const { data: shoplist, isLoading, refetch  } = useGetAllShop();
     const deleteShop = useDeleteShop();
 
     function onDelete(id: string){
-        deleteShop.mutate(id)
-        router.reload();
+        axiosInstance.delete('/api/delShop/' + id)
+            .then(() => {
+                refetch()
+            }).catch(e => console.error(e))
     }
 
     if(isLoading) {
@@ -20,75 +23,61 @@ export default function ShoplistPage(){
    // console.log(shoplist)
     
 return(
-    <DashboardLayout>
+    <ShopLayout title="Nos annexes">
 
     
-<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div className="flex mt-2">
-    <h3 className="mt-3 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Nos annexes</h3>
-    <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">
-                    <Link href="/shops/add-shop">+ AJOUTER</Link>
-     </button>
-     </div>
+    <div className="relative overflow-x-auto sm:rounded-lg">
+        <div className="flex mt-12 mb-4">
+            <button className="btn btn-primary ml-auto">
+                            <Link href="/shops/add-shop">+ AJOUTER</Link>
+            </button>
+        </div>
 
-   {/* <table className="mt-2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div className="bg-white rounded-md">
+   <table className="table">
+        <thead>
             <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col">
                     Nom
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col">
                    Adresse
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col">
                     Téléphone
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col">
                     <span className="sr-only">Action</span>
                 </th>
             </tr>
         </thead>
         <tbody>
         {shoplist?.data.data.map( shop =>
-                    <tr key={shop.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr key={shop.id} className="">
+                    <td scope="row" className="">
                         {shop.name}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="">
                           {shop.adresse}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="">
                         {shop.tel}
                     </td>
-                    <td className="flex px-6 py-4 text-right">
-                        <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">  
-                     < Link href={"/shops/edit/" + shop.id }  >Modifier</Link>
-                            </button>
-                        <button onClick={ () => onDelete(shop.id)} className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50 ">Supprimer</button>
+                    <td className=" space-x-2">
+                        <button className="btn btn-ghost">
+                            < Link href={"/shops/edit/" + shop.id }  >Modifier</Link>
+                        </button>
+                        <button  onClick={() => onDelete(shop.id)} className="btn btn-danger">Supprimer</button>
                     </td>
                 </tr>
     
             )}
            </tbody> 
-    </table>*/}
+    </table>
+    </div>
 
-    <Table dataSource={shoplist?.data.data}>
-    <Table.Column title='Nom' dataIndex={"name"} key={"id"} />
-    <Table.Column title='Adresse' dataIndex={"adresse"} key={"id"} />
-    <Table.Column title='Téléphone' dataIndex={"tel"} key={"id"} />
-    <Table.Column title='Action'  
-                    render={(value, record: any) =>{
-                        return <>
-                               <Button type="link" href={"/shops/edit/" + record.id } >Modifier</Button>
-                               <Button type="link" onClick={ () => onDelete(value)}>Supprimer</Button>
-                        </>
-                       
-                    }}
-                    dataIndex={"id"}
-                    key={"id"} />
-    </Table>
 </div>
-</DashboardLayout>
+</ShopLayout>
 
 );
 

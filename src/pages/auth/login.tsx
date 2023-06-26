@@ -11,7 +11,7 @@ export default function LoginPage() {
     const router = useRouter();
     const { register, handleSubmit, watch, formState:{ errors } } = useForm();
 
-    async function onSubmit(data:any){
+   async function onSubmit(data:any){
     const toastId = toast.loading('Patientez...');
         try{
          const response =  await loginUser(data)

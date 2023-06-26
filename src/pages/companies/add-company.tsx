@@ -58,6 +58,14 @@ export default function CreateCompany() {
                     <label className=" text-gray-500"> Email </label>
                     <input {...register("email")} className="input input-bordered w-full" type="email"  aria-label="Email Address" required />
                 </div>
+                <div className="w-full mt-4">
+                    <label className=" text-gray-500"> IFU </label>
+                    <input {...register("fiscalId")} className="input input-bordered w-full" type="text"  aria-label="fiscalId" required name="fiscalId"/>
+                </div>
+                <div className="w-full mt-4">
+                    <label className=" text-gray-500"> RCCM </label>
+                    <input {...register("registerNum")} className="input input-bordered w-full" type="registerNum"  aria-label="registerNum" required />
+                </div>
                 <div>
                     <div>
                         <label className="text-gray-500">Pays</label>

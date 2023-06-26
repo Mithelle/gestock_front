@@ -15,7 +15,7 @@ export const useUpdateShop =  () => {
 
 export const useDeleteShop =  () => {
     return useMutation({
-        mutationFn: (id) => axiosInstance.delete('/api/delShop/' + id) 
+        mutationFn: (id: string) => axiosInstance.delete('/api/delShop/' + id) 
     })
 }
 

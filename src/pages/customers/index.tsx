@@ -1,4 +1,5 @@
 import DashboardLayout from "@/component/Layout";
+import { Loading } from "@/component/loading";
 import { useDeleteCustomer, useGetAllCustomer } from "@/features/customer/customer.service";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
@@ -16,21 +17,20 @@ export default function CustomerlistPage(){
     }
 
     if(isLoading) {
-        return <div className="text-center">Loading...</div> 
+        return <Loading /> 
     }
     console.log(customerlist);
     
 return(
-    <DashboardLayout>
+    <DashboardLayout title="Clients">
 
     
-<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div className="flex mt-2">
-    <h3 className="mt-3 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Nos clients</h3>
-    <button className="ml-auto px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ">
-                    <Link href="/customers/add-customer"><PlusOutlined /> AJOUTER</Link>
-     </button>
-     </div>
+<div className="relative overflow-x-auto sm:rounded-lg">
+    <div className="flex justify-end mt-2 my-6">
+        <button className="btn btn-primary ">
+            <Link href="/customers/add-customer">+ AJOUTER</Link>
+        </button>
+    </div>
 
 <Table dataSource={customerlist?.data.data}>
     <Table.Column title='Nom' dataIndex={"name"} key={"id"} />
